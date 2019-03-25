@@ -1,0 +1,22 @@
+{
+  "options": {
+    "ver": "1.0.0",
+    "inspectConflicts": false,
+    "semicolons": false,
+    "freeze": [],
+    "ts": true
+  },
+  "app": {
+    "environmentsAllowingSeedData": "test",
+    "seedData": false,
+    "name": "hirearchy",
+    "description": "Project hirearchy",
+    "src": "src",
+    "packager": "yarn@>= 0.18.0",
+    "providers": [
+      "rest"
+    ]
+  },
+  "services": {},
+  "hooks": {}
+}
