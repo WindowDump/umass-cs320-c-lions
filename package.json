@@ -38,8 +38,10 @@
     "cors": "^2.8.4",
     "cross-env": "^5.2.0",
     "feathers-hooks-common": "^4.16.3",
+    "feathers-mongoose": "^7.3.2",
     "helmet": "^3.13.0",
     "lodash.merge": "^4.6.1",
+    "mongoose": "^5.4.20",
     "serve-favicon": "^2.5.0",
     "winston": "^3.0.0"
   },
@@ -53,6 +55,7 @@
     "@types/helmet": "^0.0.40",
     "@types/lodash.merge": "^4.6.4",
     "@types/mocha": "^5.2.5",
+    "@types/mongoose": "^5.3.24",
     "@types/request-promise": "^4.1.42",
     "@types/serve-favicon": "^2.2.30",
     "concurrently": "^4.1.0",
