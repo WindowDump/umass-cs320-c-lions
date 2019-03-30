@@ -1,6 +1,6 @@
 import { App } from '../app.interface'
 
-let moduleExports = function (app: App) {
+let moduleExports = function(app: App) {
   // Add Module Exports Here
 }
 
