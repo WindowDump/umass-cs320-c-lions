@@ -1,13 +1,11 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+  "vue": {
+    "devServer": {
+      "proxy": "http://localhost:3030"
+    }
   },
+  "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "fibers": "^3.1.1",

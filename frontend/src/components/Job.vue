@@ -15,11 +15,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
 
 export default Vue.extend({
-  props: ["title", "desc", "company", "location", "dateposted"]
-});
+  props: ['title', 'desc', 'company', 'location', 'dateposted']
+})
 </script>
 
 <style lang="scss">

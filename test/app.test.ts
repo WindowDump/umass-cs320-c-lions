@@ -17,14 +17,14 @@ const getUrl = (pathname?: string) => url.format({
 describe('Feathers application tests', () => {
   let server: Server
 
-  before(function (done) {
+  before((done) => {
     server = app.listen(port)
     server.once('listening', () => {
       setTimeout(() => done(), 500)
     })
   })
 
-  after(function (done) {
+  after((done) => {
     server.close()
     setTimeout(() => done(), 500)
   })
@@ -35,7 +35,7 @@ describe('Feathers application tests', () => {
     )
   })
 
-  describe('404', function () {
+  describe('404', () => {
     it('shows a 404 HTML page', () => {
       return rp({
         url: getUrl('path/to/nowhere'),

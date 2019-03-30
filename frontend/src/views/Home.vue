@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Jobs from "@/components/Jobs.vue";
+import Vue from 'vue'
+import Jobs from '@/components/Jobs.vue'
 export default Vue.extend({
   components: {
     Jobs
   }
-});
+})
 </script>

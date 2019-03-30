@@ -13,47 +13,47 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Job from "@/components/Job.vue"; // @ is an alias to /src
+import Vue from 'vue'
+import Job from '@/components/Job.vue' // @ is an alias to /src
 export default Vue.extend({
   data() {
     return {
       joblist: [
         {
-          title: "Chef",
+          title: 'Chef',
           desc: "We're looking for someone really good at making soup.",
-          company: "Magic Soups",
-          location: "Westville",
-          dateposted: "2/24/19"
+          company: 'Magic Soups',
+          location: 'Westville',
+          dateposted: '2/24/19'
         },
         {
-          title: "Bridge Builder",
+          title: 'Bridge Builder',
           desc: "Uh, we're building bridges. Halp.",
-          company: "Bwidges",
-          location: "Oakland",
-          dateposted: "2/4/19"
+          company: 'Bwidges',
+          location: 'Oakland',
+          dateposted: '2/4/19'
         },
         {
-          title: "Astronaut",
-          desc: "Top secret missions in deep space. Ae you ready?",
-          company: "Shhpace",
-          location: "Decker",
-          dateposted: "1/27/19"
+          title: 'Astronaut',
+          desc: 'Top secret missions in deep space. Ae you ready?',
+          company: 'Shhpace',
+          location: 'Decker',
+          dateposted: '1/27/19'
         },
         {
-          title: "Fisherman",
+          title: 'Fisherman',
           desc: "Catchin' fish.  Not afraid of sharks? Apply now!",
           company: "Joe's Fishing Crew",
-          location: "Duckston",
-          dateposted: "1/17/19"
+          location: 'Duckston',
+          dateposted: '1/17/19'
         }
       ]
-    };
+    }
   },
   components: {
     Job
   }
-});
+})
 </script>
 
 <style lang="scss">
