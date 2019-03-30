@@ -4,7 +4,7 @@ import log from './hooks/log'
 
 const { iff } = commonHooks
 
-let moduleExports: HooksObject = {
+export default {
   before: {
     all: [ log() ],
     find: [],
@@ -34,6 +34,4 @@ let moduleExports: HooksObject = {
     patch: [],
     remove: []
   },
-}
-
-export default moduleExports
+} as HooksObject
