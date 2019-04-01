@@ -25,6 +25,7 @@
     "frontend:test": "cd frontend && npx vue-cli-service test:unit",
     "frontend:lint": "cd frontend && npx vue-cli-service lint && prettier --write src/**/*",
     "frontend:start": "cd frontend && npx vue-cli-service serve",
+    "refresh-deps": "npm install && cd frontend && npm install",
     "test": "npm run frontend:test; npm run backend:test",
     "lint": "npm run frontend:lint; npm run backend:lint",
     "start": "concurrently \"npm run frontend:start\" \"npm run backend:start\""
