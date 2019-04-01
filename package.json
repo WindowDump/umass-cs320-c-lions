@@ -27,7 +27,7 @@
     "frontend:start": "cd frontend && npx vue-cli-service serve",
     "test": "npm run frontend:test; npm run backend:test",
     "lint": "npm run frontend:lint; npm run backend:lint",
-    "start": "concurrently 'npm run frontend:start' 'npm run backend:start'"
+    "start": "concurrently \"npm run frontend:start\" \"npm run backend:start\""
   },
   "dependencies": {
     "@feathersjs/configuration": "^2.0.0",
