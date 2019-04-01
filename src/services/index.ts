@@ -1,5 +1,10 @@
 import { App } from '../app.interface'
+import Company from './company.service'
+import Position from './position.service'
 
 export default function(app: App) {
-  // Add Module Exports Here
+  app.use('/companies', Company.Service)
+  app.service('companies').hooks(Company.Hooks)
+  app.use('/positions', Position.Service)
+  app.service('positions').hooks(Position.Hooks)
 }
