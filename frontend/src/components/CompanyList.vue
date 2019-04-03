@@ -15,14 +15,14 @@ import Axios from 'axios'
 export default Vue.extend({
   data() {
     return {
-      joblist: null
+      comlist: null
     }
   },
   async mounted() {
     const { data } = await Axios.get('/companies')
     // console.log(data)
     // debugger
-    this.joblist = data
+    this.comlist = data
   },
   components: {
     Company
