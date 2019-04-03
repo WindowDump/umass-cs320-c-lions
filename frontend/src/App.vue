@@ -10,6 +10,9 @@
         <v-btn flat>
           <router-link to="/about">About</router-link>
         </v-btn>
+        <v-btn flat>
+          <router-link to="/companies">Companies</router-link>
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>

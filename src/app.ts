@@ -5,6 +5,7 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import logger from './logger'
+import mongoose from 'mongoose'
 
 import favicon from 'serve-favicon'
 
@@ -32,11 +33,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(favicon(path.join('frontend', path.join('public', 'favicon.ico'))))
 
 // Host the frontend folders
-app.use('/', express.static(path.join('frontend', 'public')))
 app.use('/', express.static(path.join('frontend', 'dist')))
 
 // Set up Plugins and providers
 app.configure(express.rest())
+
+// Connect to mongoose database
+mongoose.Promise = global.Promise
+mongoose.connect(app.get('db'), { useNewUrlParser: true })
 
 // Configure other middleware (see `middleware/index.ts`)
 app.configure(middleware)
