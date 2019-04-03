@@ -12,6 +12,8 @@ export const Schema = new Mongoose.Schema({
   subordinateIds: [Mongoose.Schema.Types.ObjectId],
   title: String,
   description: String,
+  payRange: Number,
+  jobType: String,
   startDate: Date,
   postingDate: Date,
   postingExpirationDate: Date
