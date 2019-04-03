@@ -1,6 +1,7 @@
 import makeService from 'feathers-mongoose'
 import Mongoose from 'mongoose'
 import { HooksObject } from '@feathersjs/feathers'
+import { hooks } from '@feathersjs/authentication'
 
 export const Schema = new Mongoose.Schema({
   companyId: {
@@ -23,6 +24,10 @@ export const Service = makeService({
   Model: Mongoose.model('Position', Schema)
 })
 
-export const Hooks: Partial<HooksObject> = {}
+export const Hooks: Partial<HooksObject> = {
+  before: {
+    all: [ hooks.authenticate('jwt') ]
+  }
+}
 
 export default { Schema, Service, Hooks }
