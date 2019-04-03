@@ -17,7 +17,8 @@ declare module 'feathers-mongoose' {
     /**
      * The name of the id field property
      * @default _id
-     */ 
+     */
+
     id?: string
     /**
      * A pagination object containing a default and max page size
@@ -36,7 +37,8 @@ declare module 'feathers-mongoose' {
      * Overwrite the document on update
      * Makes mongoose detect whether is new document and trigger default value for unspecified properties in mongoose schema
      * @default true
-     */ 
+     */
+
     overwrite?: boolean
     /**
      * A list of mongoose models that inherit from Model
@@ -45,7 +47,8 @@ declare module 'feathers-mongoose' {
     /**
      * Use Mongoose's estimatedDocumentCount
      * @default false
-     */ 
+     */
+
     useEstimatedDocumentCount?: boolean
   }): Service<{ [key in keyof T]: any }>
 }

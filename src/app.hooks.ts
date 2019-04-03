@@ -6,7 +6,7 @@ const { iff } = commonHooks
 
 export default {
   before: {
-    all: [ log() ],
+    all: [log()],
     find: [],
     get: [],
     create: [],
@@ -16,7 +16,7 @@ export default {
   },
 
   after: {
-    all: [ log() ],
+    all: [log()],
     find: [],
     get: [],
     create: [],
@@ -26,12 +26,12 @@ export default {
   },
 
   error: {
-    all: [ log() ],
+    all: [log()],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
     remove: []
-  },
+  }
 } as HooksObject

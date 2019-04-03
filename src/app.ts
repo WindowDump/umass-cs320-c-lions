@@ -1,4 +1,3 @@
-
 // Configure Feathers app.
 import * as path from 'path'
 import compress from 'compression'

@@ -1,5 +1,4 @@
-
-import { Application } from '@feathersjs/express';
+import { Application } from '@feathersjs/express'
 
 /*
   You can (but don't need to) specify your services' data types in here.
@@ -13,6 +12,4 @@ import { Application } from '@feathersjs/express';
     user = 5; // this won't compile, because user is known to be of type User
   });
  */
-export type App = Application<{
-
-}>;
+export type App = Application<{}>
