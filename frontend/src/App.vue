@@ -1,10 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view />
+    <router-view /> -->
+    <v-toolbar>
+      <v-toolbar-title>Title</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat>Link One</v-btn>
+        <v-btn flat>Link Two</v-btn>
+        <v-btn flat>Link Three</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+    <v-footer app></v-footer>
   </div>
 </template>
 
