@@ -29,12 +29,6 @@ describe('Feathers application tests', () => {
     setTimeout(() => done(), 500)
   })
 
-  it('starts and shows the index page', () => {
-    return rp(getUrl()).then((body: string) =>
-      assert.ok(body.indexOf('<html>') !== -1, 'response does not contain <html>')
-    )
-  })
-
   describe('404', () => {
     it('shows a 404 HTML page', () => {
       return rp({
@@ -57,6 +51,29 @@ describe('Feathers application tests', () => {
         assert.strictEqual(res.error.code, 404, 'unexpected error.code')
         assert.strictEqual(res.error.message, 'Page not found', 'unexpected error.message')
         assert.strictEqual(res.error.name, 'NotFound', 'unexpected error.name')
+      })
+    })
+  })
+
+  describe('Tests for /companies', () =>{
+    // No companies to start with 
+    it('db contains no elements', () => {
+      return rp({
+        url: getUrl('/companies'),
+        json: true
+      }).then(res => {
+        assert.ok(res.length === 0, 'db does not contain zero elements')
+      })
+    })
+
+    // Add a company
+    it('db contains one element', () => {
+      return rp({
+        url: getUrl('/companies'),
+        json: true
+      }).then(res => {
+        assert.ok(res.length === 1, 'db does not contain one elements')
+        assert.ok(res[0].name === 'Google', 'Element in db is not \'Google\'')
       })
     })
   })
