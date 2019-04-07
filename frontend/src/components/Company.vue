@@ -5,15 +5,22 @@
       <div class="title">{{ name }}</div>
       <div class="company-heading"></div>
     </div>
-    <button class="btn-apply">Info</button>
+    <button class="btn-apply" v-on:click="removecom">Delete</button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Axios from 'axios'
 
 export default Vue.extend({
-  props: ['name', 'desc', 'company', 'location', 'dateposted']
+  props: ['id', 'name', 'company', 'location', 'dateposted'],
+  data: () => ({}),
+  methods: {
+    removecom: async function(event: Event) {
+      const { data } = await Axios.delete('/companies/' + this.id)
+    }
+  }
 })
 </script>
 

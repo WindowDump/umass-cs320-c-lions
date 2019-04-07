@@ -3,6 +3,7 @@
     <Company
       v-for="com in comlist"
       v-bind:key="com.id"
+      v-bind:id="com._id"
       v-bind:name="com.name"
     />
   </div>
@@ -12,6 +13,7 @@
 import Vue from 'vue'
 import Company from '@/components/Company.vue' // @ is an alias to /src
 import Axios from 'axios'
+
 export default Vue.extend({
   data() {
     return {
