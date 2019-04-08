@@ -66,14 +66,39 @@ describe('Feathers application tests', () => {
       })
     })
 
+    let companyId = ''
+
     // Add a company
-    it('db contains one element', () => {
+    it('db contains Google', () => {
       return rp({
         url: getUrl('/companies'),
         json: true
       }).then(res => {
+        companyId = res[0]._id
         assert.ok(res.length === 1, 'db does not contain one elements')
-        assert.ok(res[0].name === 'Google', 'Element in db is not \'Google\'')
+        assert.ok(res[0].name === 'Google', 'Only element in db is not \'Google\'')
+      })
+    })
+
+    // Update a company
+    it('Google is now Microsoft', () => {
+      return rp({
+        url: getUrl('/companies'),
+        json: true
+      }).then(res => {
+        assert.ok(res.length === 1, 'db does not contain one element')
+        assert.ok(res[0].name === 'Microsoft', 'Only element in db is not \'Microsoft\'')
+        assert.ok(company_id === res[0]._id, 'company_id was changed')
+      })
+    })
+
+    // Update a company
+    it('No companies are in the db', () => {
+      return rp({
+        url: getUrl('/companies'),
+        json: true
+      }).then(res => {
+        assert.ok(res.length === 0, 'db does not contain zero elements')
       })
     })
   })
