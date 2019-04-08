@@ -6,6 +6,7 @@ import { Server } from 'http'
 import url from 'url'
 import app from '../src/app'
 
+let id;
 const port = app.get('port') || 3030
 const getUrl = (pathname?: string) => url.format({
   hostname: app.get('host') || 'localhost',
@@ -55,51 +56,73 @@ describe('Feathers application tests', () => {
     })
   })
 
-  describe('Tests for /companies', () =>{
+  
+  describe('Tests for /companies', async () => {
     // No companies to start with 
-    it('db contains no elements', () => {
-      return rp({
+    it('should contain no companies', async () => {
+      const res = await rp({
         url: getUrl('/companies'),
-        json: true
-      }).then(res => {
-        assert.ok(res.length === 0, 'db does not contain zero elements')
+        json: true,
+        method: 'GET'
       })
-    })
 
-    let companyId = ''
+      assert.ok(res.length === 0, 'db does not contain zero companies')
+    })
 
     // Add a company
-    it('db contains Google', () => {
-      return rp({
+    it('should add Google to /companies', async () => {
+      const res = await rp({
+        url: getUrl('companies'),
+        json: true,
+        method: 'POST',
+        body: {name: 'Google'}
+      })
+      id = res._id 
+      assert.ok(res !== -1, 'Google was not added')
+    })
+
+    it('should contain \'Google\'', async () => {
+      const res = await rp({
         url: getUrl('/companies'),
         json: true
-      }).then(res => {
-        companyId = res[0]._id
-        assert.ok(res.length === 1, 'db does not contain one elements')
-        assert.ok(res[0].name === 'Google', 'Only element in db is not \'Google\'')
       })
+      assert.ok(res.length === 1, 'db does not contain one elements')
+      assert.ok(res[0].name === 'Google', 'Only element in db is not \'Google\'')
     })
 
     // Update a company
-    it('Google is now Microsoft', () => {
-      return rp({
-        url: getUrl('/companies'),
-        json: true
-      }).then(res => {
-        assert.ok(res.length === 1, 'db does not contain one element')
-        assert.ok(res[0].name === 'Microsoft', 'Only element in db is not \'Microsoft\'')
-        assert.ok(companyId === res[0]._id, 'company_id was changed')
+    it('Google is now Microsoft', async () => {
+      const res = await rp({
+        url: getUrl(`/companies/${id}`),
+        json: true,
+        method: 'PATCH',
+        body: { name: 'Microsoft' }
       })
+
+      assert.ok(res.name === 'Microsoft', 'Only element in db is not \'Microsoft\'')
     })
 
-    // Update a company
-    it('No companies are in the db', () => {
-      return rp({
-        url: getUrl('/companies'),
-        json: true
-      }).then(res => {
-        assert.ok(res.length === 0, 'db does not contain zero elements')
+    // Delete a company
+    it('should remove Microsoft from the db', async () => {
+      const res = await rp({
+        url: getUrl(`/companies/${id}`),
+        json: true,
+        method: 'DELETE'
       })
+
+      assert.ok(res._id === id, '_ids do not match')
+      assert.ok(res.name === 'Microsoft', 'Microsoft was not removed')
+    })
+
+    // No more companies
+    it('should contain no companies again', async () => {
+      const res = await rp({
+        url: getUrl('/companies'),
+        json: true,
+        method: 'GET'
+      })
+
+      assert.ok(res.length === 0, 'db does not contain zero companies')
     })
   })
 })
