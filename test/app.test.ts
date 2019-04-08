@@ -88,7 +88,7 @@ describe('Feathers application tests', () => {
       }).then(res => {
         assert.ok(res.length === 1, 'db does not contain one element')
         assert.ok(res[0].name === 'Microsoft', 'Only element in db is not \'Microsoft\'')
-        assert.ok(company_id === res[0]._id, 'company_id was changed')
+        assert.ok(companyId === res[0]._id, 'company_id was changed')
       })
     })
 
