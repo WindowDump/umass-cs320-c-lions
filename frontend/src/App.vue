@@ -13,9 +13,6 @@
         <v-btn flat>
           <router-link to="/companies">Companies</router-link>
         </v-btn>
-        <v-btn flat>
-          <router-link to="/ApplicationTest">ApplicationTest</router-link>
-        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>

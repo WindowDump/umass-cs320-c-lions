@@ -10,7 +10,9 @@
       </div>
       <div class="desc">Description: {{ desc }}</div>
     </div>
-    <button class="btn-apply">Apply</button>
+    <button class="btn-apply">
+      <router-link to="/ApplicationTest">Apply</router-link>
+    </button>
   </div>
 </template>
 
