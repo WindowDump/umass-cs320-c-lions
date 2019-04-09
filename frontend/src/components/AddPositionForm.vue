@@ -3,27 +3,57 @@
     <div class="form-info">
       <div class="title">
         <div>Title:</div>
-        <div>This should be a text box</div>
+        <input
+          type="text"
+          v-model="text"
+          placeholder="Enter position title here..."
+          v-bind="theTitle"
+        />
       </div>
       <div class="desc">
         <div>Description:</div>
-        <div>This should be a text box</div>
+        <input
+          type="text"
+          v-model="text"
+          placeholder="Enter position description here..."
+          v-bind="theDesc"
+        />
       </div>
       <div class="range">
         <div>Pay Range:</div>
-        <div>This should be a text box</div>
+        <input
+          type="text"
+          v-model="text"
+          placeholder="Enter position pay range here..."
+          v-bind="theRange"
+        />
       </div>
       <div class="type">
         <div>Type:</div>
-        <div>This should be a text box</div>
+        <input
+          type="text"
+          v-model="text"
+          placeholder="Enter position type here..."
+          v-bind="theDesc"
+        />
       </div>
       <div class="start">
         <div>Start Date:</div>
-        <div>This should be a text box</div>
+        <input
+          type="text"
+          v-model="text"
+          placeholder="Enter start date here..."
+          v-bind="theDesc"
+        />
       </div>
       <div class="exp">
         <div>Posting Expiration Date:</div>
-        <div>This should be a text box</div>
+        <input
+          type="text"
+          v-model="text"
+          placeholder="Enter posting expiration date here"
+          v-bind="theDesc"
+        />
       </div>
       <button class="btn-apply" v-on:click="post">Submit</button>
     </div>
@@ -32,20 +62,32 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { text } from 'body-parser'
 import Axios from 'axios'
+
+let theTitle: String = ''
+let theDesc: String = ''
+let theRange: String = ''
+let theType: String = ''
+let theStart: String = ''
+let theExp: String = ''
+
 export default Vue.extend({
-  props: ['title', 'desc', 'company', 'location', 'dateposted'],
+  data: () => ({}),
+
   methods: {
-    post: function async() {
-      Axios.post('http://localhost:3030/positions', {
-        title: 'CEO',
-        description: 'Runs the company',
-        payRange: 1000000,
-        jobType: 'full-time',
-        startDate: new Date(),
+    post: async function(event: Event) {
+      const { data } = await Axios.post('http://localhost:3030/positions', {
+        title: theTitle,
+        description: theDesc,
+        payRange: theRange,
+        jobType: theType,
+        startDate: theStart,
         postingDate: new Date(),
-        postingExpirationDate: new Date()
+        postingExpirationDate: theExp
       })
+
+      alert('A new position has been added!')
     }
   }
 })

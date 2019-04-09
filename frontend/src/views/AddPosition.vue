@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Add a new Position</h1>
+    <h1>Add a new Job Listing</h1>
     <AddPositionForm></AddPositionForm>
   </div>
 </template>

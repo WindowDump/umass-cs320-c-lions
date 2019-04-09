@@ -14,7 +14,7 @@
           <router-link to="/companies">Companies</router-link>
         </v-btn>
         <v-btn flat>
-          <router-link to="/addPosition">Add a new Position...</router-link>
+          <router-link to="/addPosition">Add a new Job Listing</router-link>
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
