@@ -1,16 +1,16 @@
 <template>
-  <form class="appForm">
+  <form class="appForm" @app-submitted="onSubmit">
     <p v-if="isShort">
       <label for="result">{{ question }}:</label>
-      <input id="result" v-model="result" placeholder="name" required />
+      <input id="result" v-model="result" placeholder="answer here" required />
     </p>
 
-    <p v-if="isLong">
+    <p v-else-if="isLong">
       <label for="result">{{ question }}:</label>
       <textarea id="result" v-model="result" required></textarea>
     </p>
 
-    <p v-if="isMult">
+    <p v-else>
       <label for="result">{{ question }}:</label>
       <select id="result" v-model.number="result" required>
         <option>5</option>
@@ -28,24 +28,37 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: ['name', 'questionType', 'question', 'results'],
-  data: function() {
+  data() {
     return {
-      result: 'None'
+      result: ''
     }
   },
   methods: {
-    isShort: function() {
+    isShort() {
       return this.questionType == 'short'
     },
-    isLong: function() {
+    isLong() {
       return this.questionType == 'long'
     },
-    isMult: function() {
+    isMult() {
       return this.questionType == 'mult'
     },
-    onSubmit: function() {
-      this.results.push(this.result)
+    onSubmit() {
+      this.$emit('add-result', String(this.result))
     }
   }
 })
 </script>
+
+<style>
+.appForm {
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  background: rgb(221, 240, 240);
+  padding: 15px;
+  width: 100%;
+  position: relative;
+  margin: 5px;
+}
+</style>

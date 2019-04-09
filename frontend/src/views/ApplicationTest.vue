@@ -1,23 +1,36 @@
-<template>
+<template @submit.prevent="onSubmit" @add-result="addResult(String($event))">
   <div>
     <h1>This is a test Application</h1>
+    <appForm
+      class="appForm"
+      name="test"
+      question="how do you do"
+      questionType="long"
+      :results="this.results"
+    ></appForm>
     <Application
+      class="Application"
       :requirements="this.requirements"
       :userId="this.userId"
       :posId="this.posId"
       :results="this.results"
     ></Application>
+    <button v-on:click="onSubmit">
+      <input type="submit" value="Submit" />
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Application from '@/components/Application.vue'
+import appForm from '@/components/appForm.vue'
 export default Vue.extend({
   components: {
-    Application
+    Application,
+    appForm
   },
-  data: function() {
+  data() {
     return {
       requirements: [
         {
@@ -43,8 +56,18 @@ export default Vue.extend({
       ],
       userId: 'axsdf',
       posId: 'prog122314',
-      results: null
+      results: new Array()
+    }
+  },
+  methods: {
+    onSubmit: function() {
+      this.$emit('app-sumbitted')
+    },
+    addResult(result: String) {
+      this.results.push(result)
     }
   }
 })
 </script>
+
+<style lang="scss"></style>
