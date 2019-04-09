@@ -27,6 +27,11 @@ export default new Router({
       path: '/companies',
       name: 'companies',
       component: () => import('./views/Companies.vue')
+    },
+    {
+      path: '/addPosition',
+      name: 'addPosition',
+      component: () => import('./views/AddPosition.vue')
     }
   ]
 })
