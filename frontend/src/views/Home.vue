@@ -1,16 +1,16 @@
 <template>
   <div>
     <h1>Home</h1>
-    <Jobs></Jobs>
+    <PositionList></PositionList>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Jobs from '@/components/Jobs.vue'
+import PositionList from '@/components/PositionList.vue'
 export default Vue.extend({
   components: {
-    Jobs
+    PositionList
   }
 })
 </script>
