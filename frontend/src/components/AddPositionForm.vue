@@ -1,77 +1,57 @@
 <template>
-  <div class="form">
-    <div class="form-info">
-      <p class="title"></p>
-      <div>Title:</div>
+  <form @submit.prevent="positionSubmit" id="positionForm">
+    <label>
+      Title:
       <input
-        class="tText"
         type="text"
-        v-model="titleText"
+        v-model="theTitle"
         placeholder="Enter position title..."
-        v-bind="theTitle"
       />
-      <p />
-      <p class="desc"></p>
-      <div>Description:</div>
+    </label>
+    <label>
+      Description:
       <input
         type="text"
-        v-model="descText"
+        v-model="theDesc"
         placeholder="Enter position description..."
-        v-bind="theDesc"
       />
-      <p />
-      <p class="range"></p>
-      <div>Pay Range:</div>
+    </label>
+    <label>
+      Pay Range:
       <input
         type="text"
-        v-model="rangeText"
+        v-model="theRange"
         placeholder="Enter position pay range..."
-        v-bind="theRange"
       />
-      <p />
-      <p class="type"></p>
-      <div>Type:</div>
+    </label>
+    <label>
+      Position:
       <input
         type="text"
-        v-model="typeText"
+        v-model="theType"
         placeholder="Enter position type..."
-        v-bind="theType"
       />
-      <p />
-      <p class="start"></p>
-      <div>Start Date:</div>
+    </label>
+    <label>
+      Start Date:
+      <input type="text" v-model="theStart" placeholder="Enter start date..." />
+    </label>
+    <label>
+      Expiration:
       <input
         type="text"
-        v-model="startText"
-        placeholder="Enter start date..."
-        v-bind="theStart"
-      />
-      <p />
-      <p class="exp"></p>
-      <div>Posting Expiration Date:</div>
-      <input
-        type="text"
-        v-model="expText"
+        v-model="theExp"
         placeholder="Enter posting expiration date..."
-        v-bind="theExp"
       />
-      <p />
-      <button class="btn-apply" v-on:click="post">Submit</button>
-    </div>
-  </div>
+    </label>
+    <button type="submit">Submit</button>
+  </form>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { text } from 'body-parser'
 import Axios from 'axios'
-
-let theTitle: String = ''
-let theDesc: String = ''
-let theRange: String = ''
-let theType: String = ''
-let theStart: String = ''
-let theExp: String = ''
 
 export default Vue.extend({
   data: () => ({
@@ -80,25 +60,19 @@ export default Vue.extend({
     theRange: '',
     theType: '',
     theStart: '',
-    theExp: '',
-    titleText: '',
-    descText: '',
-    rangeText: '',
-    typeText: '',
-    startText: '',
-    expText: ''
+    theExp: ''
   }),
 
   methods: {
-    post: async function(event: Event) {
-      const { data } = await Axios.post('http://localhost:3030/positions', {
-        title: theTitle,
-        description: theDesc,
-        payRange: theRange,
-        jobType: theType,
-        startDate: theStart,
+    positionSubmit: function(event: Event) {
+      Axios.post('/positions', {
+        title: this.theTitle,
+        description: this.theDesc,
+        payRange: this.theRange,
+        jobType: this.theType,
+        startDate: this.theStart,
         postingDate: new Date(),
-        postingExpirationDate: theExp
+        postingExpirationDate: this.theExp
       })
 
       alert('A new position has been added!')
