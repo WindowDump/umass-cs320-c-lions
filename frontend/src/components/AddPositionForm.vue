@@ -34,7 +34,7 @@
           type="text"
           v-model="text"
           placeholder="Enter position type here..."
-          v-bind="theDesc"
+          v-bind="theType"
         />
       </div>
       <div class="start">
@@ -43,7 +43,7 @@
           type="text"
           v-model="text"
           placeholder="Enter start date here..."
-          v-bind="theDesc"
+          v-bind="theStart"
         />
       </div>
       <div class="exp">
@@ -52,7 +52,7 @@
           type="text"
           v-model="text"
           placeholder="Enter posting expiration date here"
-          v-bind="theDesc"
+          v-bind="theExp"
         />
       </div>
       <button class="btn-apply" v-on:click="post">Submit</button>
