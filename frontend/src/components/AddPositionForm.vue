@@ -1,56 +1,65 @@
 <template>
   <form @submit="positionSubmit" id="positionForm">
-    <label>
+    <br /><label>
       Title:
       <input
+        class="textbox"
         type="text"
         v-model="theTitle"
         placeholder="Enter position title..."
-      />
-    </label>
+      /> </label
+    ><br /><br />
     <label>
       Description:
       <input
+        class="textbox"
         type="text"
         v-model="theDesc"
         placeholder="Enter position description..."
-      />
-    </label>
+      /> </label
+    ><br /><br />
     <label>
       Pay Range:
       <input
+        class="textbox"
         type="text"
         v-model="theRange"
         placeholder="Enter position pay range..."
-      />
-    </label>
+      /> </label
+    ><br /><br />
     <label>
       Position:
       <input
+        class="textbox"
         type="text"
         v-model="theType"
         placeholder="Enter position type..."
-      />
-    </label>
+      /> </label
+    ><br /><br />
     <label>
       Start Date:
-      <input type="text" v-model="theStart" placeholder="Enter start date..." />
-    </label>
+      <input
+        class="textbox"
+        type="text"
+        v-model="theStart"
+        placeholder="Enter start date..."
+      /> </label
+    ><br /><br />
     <label>
       Expiration:
       <input
+        class="textbox"
         type="text"
         v-model="theExp"
         placeholder="Enter posting expiration date..."
-      />
-    </label>
-    <button type="submit">Submit</button>
+      /> </label
+    ><br /><br />
+    <button class="bt-submit" type="submit">Submit</button>
   </form>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { text } from 'body-parser'
 import Axios from 'axios'
 
 export default Vue.extend({
@@ -93,12 +102,13 @@ export default Vue.extend({
   margin: 5px;
 }
 
-.form-info {
-  flex: 1 1;
-  padding-right: 10px;
+.textbox {
+  border: 1px solid #888;
+  background: #fff;
+  width: 200px;
 }
 
-.btn-apply {
+.bt-submit {
   width: 100px;
   border-radius: 5px;
   border: none;
