@@ -27,6 +27,11 @@ export default new Router({
       path: '/companies',
       name: 'companies',
       component: () => import('./views/Companies.vue')
+    },
+    {
+      path: '/ApplicationTest',
+      name: 'ApplicationTest',
+      component: () => import('./views/ApplicationTest.vue')
     }
   ]
 })
