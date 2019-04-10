@@ -12,11 +12,11 @@ export const Schema = new Mongoose.Schema({
   subordinateIds: [Mongoose.Schema.Types.ObjectId],
   title: String,
   description: String,
-  payRange: Number,
+  payRange: String,
   jobType: String,
-  startDate: Date,
-  postingDate: Date,
-  postingExpirationDate: Date
+  startDate: String,
+  postingDate: String,
+  postingExpirationDate: String
 })
 
 export const Service = makeService({
