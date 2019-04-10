@@ -15,7 +15,7 @@ export const Schema = new Mongoose.Schema({
   payRange: String,
   jobType: String,
   startDate: String,
-  postingDate: Date,
+  postingDate: String,
   postingExpirationDate: String
 })
 

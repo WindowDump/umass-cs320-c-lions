@@ -23,8 +23,15 @@
       <input
         class="textbox"
         type="text"
-        v-model="theRange"
-        placeholder="Enter position pay range..."
+        v-model="theMin"
+        placeholder="Enter position pay min..."
+      />
+      to
+      <input
+        class="textbox"
+        type="text"
+        v-model="theMax"
+        placeholder="Enter position pay max..."
       /> </label
     ><br /><br />
     <label>
@@ -66,7 +73,8 @@ export default Vue.extend({
   data: () => ({
     theTitle: '',
     theDesc: '',
-    theRange: '',
+    theMin: '',
+    theMax: '',
     theType: '',
     theStart: '',
     theExp: ''
@@ -74,13 +82,15 @@ export default Vue.extend({
 
   methods: {
     positionSubmit: function(event: Event) {
+      let d = new Date()
+
       Axios.post('/positions', {
         title: this.theTitle,
         description: this.theDesc,
-        payRange: this.theRange,
+        payRange: this.theMin + '-' + this.theMax,
         jobType: this.theType,
         startDate: this.theStart,
-        postingDate: new Date(),
+        postingDate: d.getMonth() + '/' + d.getDay() + '/' + d.getFullYear(),
         postingExpirationDate: this.theExp
       })
 
@@ -98,7 +108,6 @@ export default Vue.extend({
   background: rgb(221, 240, 240);
   padding: 15px;
   width: 100%;
-
   margin: 5px;
 }
 

@@ -1,7 +1,8 @@
 <template>
   <div class="job">
     <span class="dateposted"
-      >Posted {{ postingDate }} expires: {{ postingExpirationDate }}</span
+      >Posted: {{ postingDate }} <br />
+      Expires: {{ postingExpirationDate }}</span
     >
     <div class="job-info">
       <div class="title">{{ title }}</div>
