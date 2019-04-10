@@ -1,60 +1,61 @@
 <template>
   <div class="form">
     <div class="form-info">
-      <div class="title">
-        <div>Title:</div>
-        <input
-          type="text"
-          v-model="text"
-          placeholder="Enter position title here..."
-          v-bind="theTitle"
-        />
-      </div>
-      <div class="desc">
-        <div>Description:</div>
-        <input
-          type="text"
-          v-model="text"
-          placeholder="Enter position description here..."
-          v-bind="theDesc"
-        />
-      </div>
-      <div class="range">
-        <div>Pay Range:</div>
-        <input
-          type="text"
-          v-model="text"
-          placeholder="Enter position pay range here..."
-          v-bind="theRange"
-        />
-      </div>
-      <div class="type">
-        <div>Type:</div>
-        <input
-          type="text"
-          v-model="text"
-          placeholder="Enter position type here..."
-          v-bind="theType"
-        />
-      </div>
-      <div class="start">
-        <div>Start Date:</div>
-        <input
-          type="text"
-          v-model="text"
-          placeholder="Enter start date here..."
-          v-bind="theStart"
-        />
-      </div>
-      <div class="exp">
-        <div>Posting Expiration Date:</div>
-        <input
-          type="text"
-          v-model="text"
-          placeholder="Enter posting expiration date here"
-          v-bind="theExp"
-        />
-      </div>
+      <p class="title"></p>
+      <div>Title:</div>
+      <input
+        class="tText"
+        type="text"
+        v-model="titleText"
+        placeholder="Enter position title..."
+        v-bind="theTitle"
+      />
+      <p />
+      <p class="desc"></p>
+      <div>Description:</div>
+      <input
+        type="text"
+        v-model="descText"
+        placeholder="Enter position description..."
+        v-bind="theDesc"
+      />
+      <p />
+      <p class="range"></p>
+      <div>Pay Range:</div>
+      <input
+        type="text"
+        v-model="rangeText"
+        placeholder="Enter position pay range..."
+        v-bind="theRange"
+      />
+      <p />
+      <p class="type"></p>
+      <div>Type:</div>
+      <input
+        type="text"
+        v-model="typeText"
+        placeholder="Enter position type..."
+        v-bind="theType"
+      />
+      <p />
+      <p class="start"></p>
+      <div>Start Date:</div>
+      <input
+        type="text"
+        v-model="startText"
+        placeholder="Enter start date..."
+        v-bind="theStart"
+      />
+      <p />
+      <p class="exp"></p>
+      <div>Posting Expiration Date:</div>
+      <input
+        type="text"
+        v-model="expText"
+        placeholder="Enter posting expiration date..."
+        v-bind="theExp"
+      />
+      <p />
       <button class="btn-apply" v-on:click="post">Submit</button>
     </div>
   </div>
@@ -73,7 +74,20 @@ let theStart: String = ''
 let theExp: String = ''
 
 export default Vue.extend({
-  data: () => ({}),
+  data: () => ({
+    theTitle: '',
+    theDesc: '',
+    theRange: '',
+    theType: '',
+    theStart: '',
+    theExp: '',
+    titleText: '',
+    descText: '',
+    rangeText: '',
+    typeText: '',
+    startText: '',
+    expText: ''
+  }),
 
   methods: {
     post: async function(event: Event) {
