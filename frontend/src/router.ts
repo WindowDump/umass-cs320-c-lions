@@ -29,9 +29,9 @@ export default new Router({
       component: () => import('./views/Companies.vue')
     },
     {
-      path: '/ApplicationTest',
-      name: 'ApplicationTest',
-      component: () => import('./views/ApplicationTest.vue')
+      path: '/addPosition',
+      name: 'addPosition',
+      component: () => import('./views/AddPosition.vue')
     }
   ]
 })
