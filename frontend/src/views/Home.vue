@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <v-flex xs12 sm6 md3>
+      <v-text-field label="Solo" placeholder="Placeholder" solo></v-text-field>
+    </v-flex>
     <Jobs></Jobs>
   </div>
 </template>

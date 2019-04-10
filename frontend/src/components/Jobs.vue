@@ -15,6 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Job from '@/components/Job.vue' // @ is an alias to /src
+import Axios from 'axios'
 export default Vue.extend({
   data() {
     return {
@@ -52,6 +53,12 @@ export default Vue.extend({
   },
   components: {
     Job
+  },
+  async mounted() {
+    const { data } = await Axios.get('/positions')
+    console.log(data)
+    // debugger
+    this.joblist = data
   }
 })
 </script>
