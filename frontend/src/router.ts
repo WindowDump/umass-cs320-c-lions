@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import JobPostings from './views/JobPostings.vue'
 
 Vue.use(Router)
 
@@ -27,6 +26,11 @@ export default new Router({
       path: '/companies',
       name: 'companies',
       component: () => import('./views/Companies.vue')
+    },
+    {
+      path: '/addPosition',
+      name: 'addPosition',
+      component: () => import('./views/AddPosition.vue')
     }
   ]
 })

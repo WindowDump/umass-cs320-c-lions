@@ -1,26 +1,44 @@
 <template>
   <div class="job">
-    <span class="dateposted">{{ dateposted }}</span>
+    <span class="dateposted"
+      >Posted: {{ postingDate }} <br />
+      Expires: {{ postingExpirationDate }}</span
+    >
     <div class="job-info">
       <div class="title">{{ title }}</div>
-      <div class="company-heading">
-        <span class="company">{{ company }}</span>
-        -
-        <span class="location">{{ location }}</span>
+      <div class="position-heading">
+        <p>{{ description }}</p>
       </div>
-      <div class="desc">Description: {{ desc }}</div>
+      <p>Pay: {{ payRange }}</p>
+      <p>Job Type: {{ jobType }}</p>
+      <p>Start Date: {{ startDate }}</p>
     </div>
-    <button class="btn-apply">
-      <router-link to="/ApplicationTest">Apply</router-link>
-    </button>
+    <form @submit="removepos" id="positionForm">
+      <button class="btn-apply">Delete</button>
+    </form>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-
+import Axios from 'axios'
 export default Vue.extend({
-  props: ['title', 'desc', 'company', 'location', 'dateposted']
+  props: [
+    'id',
+    'title',
+    'description',
+    'payRange',
+    'jobType',
+    'startDate',
+    'postingDate',
+    'postingExpirationDate'
+  ],
+  data: () => ({}),
+  methods: {
+    removepos: async function(event: Event) {
+      const { data } = await Axios.delete('/positions/' + this.id)
+    }
+  }
 })
 </script>
 
@@ -35,12 +53,10 @@ export default Vue.extend({
   position: relative;
   margin: 5px;
 }
-
 .job-info {
   flex: 1 1;
   padding-right: 10px;
 }
-
 .btn-apply {
   width: 100px;
   border-radius: 5px;
@@ -51,34 +67,27 @@ export default Vue.extend({
   padding: 10px;
   cursor: pointer;
 }
-
 .btn-apply:hover,
 .btn-apply:focus {
   background: rgb(5, 150, 5);
 }
-
 .btn-apply:focus {
   outline: none;
 }
-
 .btn-apply:active {
   transform: scale(0.97);
 }
-
 .title {
   font-size: 1.5em;
   padding-bottom: 10px;
 }
-
-.company-heading {
+.position-heading {
   padding-bottom: 5px;
 }
-
-.company {
+.position {
   font-weight: bold;
   padding-bottom: 5px;
 }
-
 .dateposted {
   position: absolute;
   right: 10px;
