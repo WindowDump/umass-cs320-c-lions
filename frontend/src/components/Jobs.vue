@@ -53,12 +53,6 @@ export default Vue.extend({
   },
   components: {
     Job
-  },
-  async mounted() {
-    const { data } = await Axios.get('/positions')
-    console.log(data)
-    // debugger
-    this.joblist = data
   }
 })
 </script>

@@ -1,9 +1,10 @@
 <template>
   <div class="job">
-    <span class="dateposted">{{ dateposted }}</span>
+    <!-- <span class="dateposted">{{ dateposted }}</span> -->
     <div class="job-info">
       <div class="title">{{ name }}</div>
-      <div class="company-heading"></div>
+      <!-- <div class="company-heading"></div> -->
+      <button @click="removeCompany">remove</button>
     </div>
     <button class="btn-apply">Info</button>
   </div>
@@ -11,9 +12,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Axios from 'axios'
 
 export default Vue.extend({
-  props: ['name', 'desc', 'company', 'location', 'dateposted']
+  // props: ['name', 'desc', 'company', 'location', 'dateposted']
+  props: ['name'],
+  methods: {
+    async removeCompany() {
+      // Axios.delete("/companies", this.name);
+      let el = this.$el
+      console.log(el)
+    }
+  }
 })
 </script>
 
