@@ -28,7 +28,7 @@
       /> </label
     ><br /><br />
     <label>
-      Position:
+      Position type:
       <input
         class="textbox"
         type="text"
@@ -130,9 +130,5 @@ export default Vue.extend({
 
 .btn-apply:active {
   transform: scale(0.97);
-}
-
-.title {
-  flex-direction: row;
 }
 </style>
