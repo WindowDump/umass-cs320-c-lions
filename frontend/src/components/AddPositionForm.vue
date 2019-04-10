@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="positionSubmit" id="positionForm">
+  <form @submit="positionSubmit" id="positionForm">
     <label>
       Title:
       <input

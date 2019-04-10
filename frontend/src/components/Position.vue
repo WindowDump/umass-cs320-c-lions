@@ -12,7 +12,9 @@
       <p>Job Type: {{ jobType }}</p>
       <p>Start Date: {{ startDate }}</p>
     </div>
-    <button class="btn-apply" v-on:click="removepos">Delete</button>
+    <form @submit="removepos" id="positionForm">
+      <button class="btn-apply">Delete</button>
+    </form>
   </div>
 </template>
 
