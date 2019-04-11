@@ -1,13 +1,19 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-form @submit="positionSubmit" id="positionForm">
+      <v-form
+        ref="form"
+        @submit="positionSubmit"
+        v-model="valid"
+        lazy-validation
+      >
         <v-container>
           <v-layout column left>
             <v-flex xs12 md4 row>
               <label>Title:</label>
               <v-text-field
                 v-model="theTitle"
+                :rules="titleRules"
                 label="Enter position title..."
                 box
                 required
@@ -18,6 +24,7 @@
               <label>Description:</label>
               <v-text-field
                 v-model="theDesc"
+                :rules="descRules"
                 label="Enter position description..."
                 box
                 required
@@ -36,6 +43,7 @@
                 :min="0"
                 :max="600"
                 type="number"
+                required
               ></v-text-field>
             </v-flex>
 
@@ -45,6 +53,7 @@
                 :max="600"
                 :min="0"
                 :step="10"
+                required
               ></v-range-slider>
             </v-flex>
 
@@ -64,8 +73,10 @@
               <v-select
                 v-model="theType"
                 :items="items"
+                :rules="typeRules"
                 label="Select a position type..."
                 outline
+                required
               ></v-select>
             </v-flex>
 
@@ -84,9 +95,11 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="theStart"
+                    :rules="startRules"
                     label="Choose a start date..."
                     prepend-icon="event"
                     readonly
+                    required
                     v-on="on"
                   ></v-text-field>
                 </template>
@@ -112,9 +125,11 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="theExp"
+                    :rules="expRules"
                     label="Choose an expiration date..."
                     prepend-icon="event"
                     readonly
+                    required
                     v-on="on"
                   ></v-text-field>
                 </template>
@@ -151,11 +166,19 @@ export default Vue.extend({
     theExp: new Date().toISOString().substr(0, 10),
     items: ['Internship', 'Part-time', 'Full-time'],
     menu: null,
-    menu2: null
+    menu2: null,
+    valid: false,
+    titleRules: [(v: String) => !!v || 'Title is required'],
+    descRules: [(v: String) => !!v || 'Description is required'],
+    typeRules: [(v: String) => !!v || 'Position type is required'],
+    startRules: [(v: String) => !!v || 'Start date is required'],
+    expRules: [(v: String) => !!v || 'Expiration date is required']
   }),
 
   methods: {
     positionSubmit: function(event: Event) {
+      //if ((this.$refs.form as Vue).validate())
+
       Axios.post('/positions', {
         title: this.theTitle,
         description: this.theDesc,
