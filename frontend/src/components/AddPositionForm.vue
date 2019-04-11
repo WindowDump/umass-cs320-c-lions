@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-form
-        ref="form"
-        @submit="positionSubmit"
-        v-model="valid"
-        lazy-validation
-      >
-        <v-container>
-          <v-layout column left>
+      <v-container>
+        <v-layout column left>
+          <v-form
+            ref="form"
+            @submit="positionSubmit"
+            v-model="valid"
+            lazy-validation
+          >
             <v-flex xs12 md4 row>
               <label>Title:</label>
               <v-text-field
@@ -145,9 +145,9 @@
                 >Submit</v-btn
               >
             </v-flex>
-          </v-layout>
-        </v-container>
-      </v-form>
+          </v-form>
+        </v-layout>
+      </v-container>
     </v-app>
   </div>
 </template>

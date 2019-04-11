@@ -31,6 +31,11 @@ export default new Router({
       path: '/addPosition',
       name: 'addPosition',
       component: () => import('./views/AddPosition.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue')
     }
   ]
 })
