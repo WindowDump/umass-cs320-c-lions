@@ -177,7 +177,7 @@ export default Vue.extend({
 
   methods: {
     positionSubmit: function(event: Event) {
-      //if ((this.$refs.form as Vue).validate())
+      //if ((this.$refs.form as Vue).validate()){}
 
       Axios.post('/positions', {
         title: this.theTitle,
@@ -190,6 +190,10 @@ export default Vue.extend({
       })
 
       alert('A new position has been added!')
+
+      // }else{
+      //   alert('Some fields are not filled out correctly. Unable to submit.')
+      // }
     }
   }
 })
