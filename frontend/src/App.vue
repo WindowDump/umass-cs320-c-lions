@@ -13,6 +13,12 @@
         <v-btn flat>
           <router-link to="/companies">Companies</router-link>
         </v-btn>
+        <v-btn flat>
+          <router-link to="/addPosition">Add a New Position</router-link>
+        </v-btn>
+        <v-btn flat>
+          <router-link to="/login">Login</router-link>
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
