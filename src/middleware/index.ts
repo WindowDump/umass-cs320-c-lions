@@ -1,7 +1,8 @@
 import { App } from '../app.interface'
 
+import cookieParser from 'cookie-parser'
+
 // tslint:disable-next-line:no-unused-variable
 export default function(app: App) {
-  // Add your custom middleware here. Remember that
-  // in Express, the order matters.
+  app.use(cookieParser())
 }
