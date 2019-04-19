@@ -24,10 +24,6 @@ export const Service = makeService({
   Model: Mongoose.model('Position', Schema)
 })
 
-export const Hooks: Partial<HooksObject> = {
-  before: {
-    all: [ hooks.authenticate('jwt') ]
-  }
-}
+export const Hooks: Partial<HooksObject> = {}
 
 export default { Schema, Service, Hooks }
