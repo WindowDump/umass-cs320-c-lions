@@ -1,5 +1,56 @@
 <template>
-  <form class="appForm" @app-submitted="onSubmit">
+  <div id="app">
+    <v-app id="inspire">
+      <v-container>
+        <v-layout column left>
+          <v-form
+            ref="form"
+            @submit="applySubmit"
+            v-model="valid"
+            lazy-validation
+          >
+            <v-flex>
+              <label>First Name:</label>
+              <v-text-field
+                v-model="theFirstName"
+                label="Type here..."
+                box
+                required
+              ></v-text-field>
+            </v-flex>
+
+            <v-flex>
+              <label>Last Name:</label>
+              <v-text-field
+                v-model="theLastName"
+                label="Type here..."
+                box
+                required
+              ></v-text-field>
+            </v-flex>
+
+            <v-flex>
+              <label>Enter your Email Address:</label>
+              <v-text-field
+                v-model="theEmail"
+                label="Type here..."
+                box
+                required
+              ></v-text-field>
+            </v-flex>
+
+            <v-flex>
+              <v-btn class="bt-submit" type="submit" color="success"
+                >Submit</v-btn
+              >
+            </v-flex>
+          </v-form>
+        </v-layout>
+      </v-container>
+    </v-app>
+  </div>
+
+  <!-- <form class="appForm" @app-submitted="onSubmit">
     <p v-if="isShort">
       <label for="result">{{ question }}:</label>
       <input id="result" v-model="result" placeholder="answer here" required />
@@ -20,7 +71,7 @@
         <option>1</option>
       </select>
     </p>
-  </form>
+  </form> -->
 </template>
 
 <script lang="ts">
@@ -34,18 +85,21 @@ export default Vue.extend({
     }
   },
   methods: {
-    isShort() {
-      return this.questionType == 'short'
-    },
-    isLong() {
-      return this.questionType == 'long'
-    },
-    isMult() {
-      return this.questionType == 'mult'
-    },
-    onSubmit() {
-      this.$emit('add-result', String(this.result))
+    applySubmit: function(event: Event) {
+      alert('Thank you for applying!')
     }
+    // isShort() {
+    //   return this.questionType == 'short'
+    // },
+    // isLong() {
+    //   return this.questionType == 'long'
+    // },
+    // isMult() {
+    //   return this.questionType == 'mult'
+    // },
+    // onSubmit() {
+    //   this.$emit('add-result', String(this.result))
+    // }
   }
 })
 </script>
