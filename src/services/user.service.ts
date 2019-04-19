@@ -17,7 +17,7 @@ export const Schema = new Mongoose.Schema({
 })
 
 export const Service = makeService({
-  Model: Mongoose.model('Example', Schema)
+  Model: Mongoose.model('User', Schema)
 })
 
 export const Hooks: Partial<HooksObject> = {
