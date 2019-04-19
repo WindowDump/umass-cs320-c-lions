@@ -15,6 +15,7 @@
       <form @submit="removepos" id="positionForm">
         <v-btn class="btn-apply" color="green">Delete</v-btn>
       </form>
+      <v-btn to="/apply" color="blue">Apply</v-btn>
     </v-card-actions>
   </v-card>
 </template>
