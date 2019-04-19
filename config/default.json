@@ -5,5 +5,52 @@
     "default": 10,
     "max": 50
   },
+  "authentication": {
+    "secret": "df6aff8f419f8b9a0ea7c5267728989aa8c73a455ac37a8064b711483c4984b4d795f83414ac2c80b45b4bf2fecb78f85f451d9e387e90456b81e1fa76318e2cd0dcd0064fe252389022f24cc7a41c9059aab8c8846d7effbd0028be813e23d58a34992ef06d67982566005186af965e28796be6a06622be041d3d248f867c7a8f1e0fe5252410fa1af4b0758585e7d56d2179d6e7b345e1cf837db0607fcd7375c4bda7b27e767a3d8b6cfcf22cb29f893af8cd9b18c2bdd5dc23f1297a63baddcbf0728630978c28a4291f96ef1336c2db1be3e58cb896108af40d2670a6c2d11d7d568b81d0b0d422aa575441879e91aeb56056b942c46819b742188f4101",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/auth",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "auth0": {
+      "clientID": "your auth0 client id",
+      "clientSecret": "your auth0 client secret",
+      "successRedirect": "/",
+      "domain": "mydomain.auth0.com",
+      "scopes": [
+        "profile"
+      ]
+    },
+    "google": {
+      "clientID": "your google client id",
+      "clientSecret": "your google client secret",
+      "successRedirect": "/",
+      "scope": [
+        "profile openid email"
+      ]
+    },
+    "cookie": {
+      "enabled": true,
+      "name": "feathers-jwt",
+      "httpOnly": false,
+      "secure": false
+    }
+  },
   "db": "mongodb://localhost:27017/feathers"
 }

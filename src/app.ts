@@ -13,6 +13,7 @@ import configuration from '@feathersjs/configuration'
 import express from '@feathersjs/express'
 
 import middleware from './middleware'
+import authentication from './authentication'
 import services from './services'
 import appHooks from './app.hooks'
 
@@ -43,6 +44,8 @@ mongoose.connect(app.get('db'), { useNewUrlParser: true })
 
 // Configure other middleware (see `middleware/index.ts`)
 app.configure(middleware)
+// Add authentication
+app.configure(authentication)
 // Set up our services (see `services/index.ts`)
 app.configure(services)
 
