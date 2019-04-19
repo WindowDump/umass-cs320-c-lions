@@ -1,6 +1,12 @@
 <template>
   <div class="apply">
-    <h1>Application Page</h1>
+    <center>
+      <h1 id="title">
+        <font color="white">
+          Application Page
+        </font>
+      </h1>
+    </center>
     <ApplyForm></ApplyForm>
   </div>
 </template>
@@ -14,3 +20,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<!-- doesn't do anything rn -->
+<style>
+#title {
+  padding: vertical;
+}
+</style>

@@ -2,15 +2,21 @@
   <div id="app" class="fields">
     <v-app id="inspire">
       <v-container>
-        <v-layout justify-center>
-          <v-form
-            ref="form"
-            @submit="applySubmit"
-            v-model="valid"
-            lazy-validation
-          >
-            <v-flex align-self: center>
-              <label>First Name:</label>
+        <v-form
+          ref="form"
+          @submit="applySubmit"
+          v-model="valid"
+          lazy-validation
+        >
+          <v-layout row wrap>
+            <!-- field for first name -->
+            <v-flex xs4>
+              <v-card-text id="statictext" class="text-xs-right"
+                >First Name:</v-card-text
+              >
+            </v-flex>
+
+            <v-flex xs4>
               <v-text-field
                 v-model="theFirstName"
                 label="Type here..."
@@ -19,8 +25,16 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex>
-              <label>Last Name:</label>
+            <v-flex xs4> </v-flex>
+
+            <!-- field for last name -->
+            <v-flex xs4>
+              <v-card-text id="statictext" class="text-xs-right"
+                >Last Name:</v-card-text
+              >
+            </v-flex>
+
+            <v-flex xs4>
               <v-text-field
                 v-model="theLastName"
                 label="Type here..."
@@ -29,8 +43,16 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex>
-              <label>Enter your Email Address:</label>
+            <v-flex xs4> </v-flex>
+
+            <!-- field for email address -->
+            <v-flex xs4>
+              <v-card-text id="statictext" class="text-xs-right"
+                >Email Address:</v-card-text
+              >
+            </v-flex>
+
+            <v-flex xs4>
               <v-text-field
                 v-model="theEmail"
                 label="Type here..."
@@ -39,13 +61,18 @@
               ></v-text-field>
             </v-flex>
 
+            <v-flex xs4> </v-flex>
+
+            <!-- button formatting -->
             <v-flex>
-              <v-btn class="bt-submit" type="submit" color="success"
-                >Submit</v-btn
-              >
+              <div class="text-xs-center">
+                <v-btn class="bt-submit" type="submit" color="success"
+                  >Submit</v-btn
+                >
+              </div>
             </v-flex>
-          </v-form>
-        </v-layout>
+          </v-layout>
+        </v-form>
       </v-container>
     </v-app>
   </div>
@@ -55,12 +82,11 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  props: ['name', 'questionType', 'question', 'results'],
-  data() {
-    return {
-      result: ''
-    }
-  },
+  data: () => ({
+    theFirstName: '',
+    theLastName: '',
+    theEmail: ''
+  }),
   methods: {
     applySubmit: function(event: Event) {
       alert('Thank you for applying!')
@@ -81,8 +107,19 @@ export default Vue.extend({
   margin: 5px;
 }
 
-.fields {
-  align-items: center;
-  width: 100%;
+#statictext {
+  color: rgb(65, 60, 60);
+}
+
+#app {
+  background-color: #33d671;
+}
+
+#inspire {
+  background-color: #42f486;
+  border-radius: 25px;
+  width: 45%;
+  margin: auto;
+  height: auto;
 }
 </style>
