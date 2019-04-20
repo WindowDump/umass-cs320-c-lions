@@ -6,7 +6,7 @@
         <v-tab-item column centered>
           <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
-              <v-flex xs5>
+              <v-flex xs6>
                 <v-card-text class="text-xs-right">Email:</v-card-text>
               </v-flex>
               <v-flex xs6>
