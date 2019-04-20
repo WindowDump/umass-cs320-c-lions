@@ -187,7 +187,7 @@ export default Vue.extend({
 
   methods: {
     positionSubmit: function(event: Event) {
-      //if ((this.$refs.form as Vue).validate()){}
+      //if ((this.$refs.form as Vue).validate()){
 
       Axios.post('/positions', {
         title: this.theTitle,

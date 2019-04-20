@@ -41,6 +41,11 @@ export default new Router({
       path: '/apply',
       name: 'apply',
       component: () => import('./views/Apply.vue')
+    },
+    {
+      path: '/onboarding',
+      name: 'onboarding',
+      component: () => import('./views/Onboarding.vue')
     }
   ]
 })
