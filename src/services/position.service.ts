@@ -1,11 +1,10 @@
 import makeService from 'feathers-mongoose'
 import Mongoose from 'mongoose'
 import { HooksObject } from '@feathersjs/feathers'
-import { hooks } from '@feathersjs/authentication'
-import onlyCompanyManager from 'src/hooks/onlyCompanyManager';
-import { disallow, discard, iffElse } from 'feathers-hooks-common/types';
-import applyToPosition from 'src/hooks/applyToPosition';
-import setCompanyId from 'src/hooks/setCompanyId';
+import onlyCompanyManager from '../../src/hooks/onlyCompanyManager'
+import { discard } from 'feathers-hooks-common'
+import applyToPosition from '../../src/hooks/applyToPosition'
+import setCompanyId from '../../src/hooks/setCompanyId'
 
 export const Schema = new Mongoose.Schema({
   companyId: {
