@@ -2,15 +2,17 @@
   <div id="app">
     <v-app id="inspire">
       <v-container>
-        <v-layout column left>
-          <v-form
-            ref="form"
-            @submit="positionSubmit"
-            v-model="valid"
-            lazy-validation
-          >
-            <v-flex xs12 md4 row>
-              <label>Title:</label>
+        <v-form
+          ref="form"
+          @submit="positionSubmit"
+          v-model="valid"
+          lazy-validation
+        >
+          <v-layout row wrap>
+            <v-flex xs6>
+              <v-card-text>Title:</v-card-text>
+            </v-flex>
+            <v-flex xs6>
               <v-text-field
                 v-model="theTitle"
                 :rules="titleRules"
@@ -20,8 +22,10 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex xs12 md4>
+            <v-flex xs6>
               <label>Description:</label>
+            </v-flex>
+            <v-flex xs6>
               <v-text-field
                 v-model="theDesc"
                 :rules="descRules"
@@ -31,11 +35,11 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex>
-              <label>Pay Range:</label>
+            <v-flex xs3>
+              <v-card-text>Pay Range:</v-card-text>
             </v-flex>
 
-            <v-flex shrink style="width: 60px">
+            <v-flex shrink style="width: 60px" xs3>
               <v-text-field
                 v-model="theRange[0]"
                 hide-details
@@ -47,7 +51,7 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex>
+            <v-flex xs3>
               <v-range-slider
                 v-model="theRange"
                 :max="600"
@@ -57,7 +61,7 @@
               ></v-range-slider>
             </v-flex>
 
-            <v-flex shrink style="width: 60px">
+            <v-flex shrink style="width: 60px" xs3>
               <v-text-field
                 v-model="theRange[1]"
                 hide-details
@@ -68,8 +72,10 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex>
+            <v-flex xs6>
               <label>Position type:</label>
+            </v-flex>
+            <v-flex xs6>
               <v-select
                 v-model="theType"
                 :items="items"
@@ -80,8 +86,10 @@
               ></v-select>
             </v-flex>
 
-            <v-flex xs12 sm6 md4>
+            <v-flex xs6>
               <label>Position start date:</label>
+            </v-flex>
+            <v-flex xs6>
               <v-menu
                 v-model="menu"
                 :close-on-content-click="false"
@@ -110,8 +118,10 @@
               </v-menu>
             </v-flex>
 
-            <v-flex xs12 sm6 md4>
+            <v-flex xs6>
               <label>Position expiration date:</label>
+            </v-flex>
+            <v-flex xs6>
               <v-menu
                 v-model="menu2"
                 :close-on-content-click="false"
@@ -140,13 +150,13 @@
               </v-menu>
             </v-flex>
 
-            <v-flex>
+            <v-flex xs12>
               <v-btn class="bt-submit" type="submit" color="success"
                 >Submit</v-btn
               >
             </v-flex>
-          </v-form>
-        </v-layout>
+          </v-layout>
+        </v-form>
       </v-container>
     </v-app>
   </div>
@@ -177,7 +187,7 @@ export default Vue.extend({
 
   methods: {
     positionSubmit: function(event: Event) {
-      //if ((this.$refs.form as Vue).validate()){}
+      //if ((this.$refs.form as Vue).validate()){
 
       Axios.post('/positions', {
         title: this.theTitle,
