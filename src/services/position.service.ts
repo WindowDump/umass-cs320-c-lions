@@ -5,6 +5,7 @@ import { hooks } from '@feathersjs/authentication'
 import onlyCompanyManager from 'src/hooks/onlyCompanyManager';
 import { disallow, discard, iffElse } from 'feathers-hooks-common/types';
 import applyToPosition from 'src/hooks/applyToPosition';
+import setCompanyId from 'src/hooks/setCompanyId';
 
 export const Schema = new Mongoose.Schema({
   companyId: {
@@ -79,8 +80,10 @@ export const Hooks: Partial<HooksObject> = {
       discard(
         'subordinatePositionIds',
         'acceptedUserId',
-        'appliedUserIds'
+        'appliedUserIds',
+        'companyId'
       ),
+      setCompanyId(),
       (context) => {
         context.data.appliedUserIds = []
       }
@@ -92,7 +95,8 @@ export const Hooks: Partial<HooksObject> = {
       discard(
         'subordinatePositionIds',
         'acceptedUserId',
-        'appliedUserIds'
+        'appliedUserIds',
+        'companyId'
       ),
       applyToPosition()
     ]
