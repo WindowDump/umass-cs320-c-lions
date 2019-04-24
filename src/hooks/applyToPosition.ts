@@ -5,12 +5,8 @@ export default function (): Hook {
   return async (context) => {
     const { user } = context.params
     const { appliedUsers } = await context.service.get(context.id as Id)
-    appliedUsers.push(user._id)
-    if (context.data.apply) {
-      context.data = { appliedUsers }
-    } else if (!user.isManager) {
-      throw new Error('Only managers can adjust positions')
-    }
+    if (!appliedUsers.includes(user._id)) appliedUsers.push(user._id)
+    context.data = { appliedUsers }
     return context
   }
 }
