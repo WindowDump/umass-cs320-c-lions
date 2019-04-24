@@ -1,8 +1,7 @@
 import { Hook } from '@feathersjs/feathers'
 
-export default function (): Hook {
-
-  return async (context) => {
+export default function(): Hook {
+  return async context => {
     const { user } = context.params
     if (!user.isManager) {
       throw new Error('You must be a manager to perform this operation')

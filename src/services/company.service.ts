@@ -14,9 +14,9 @@ export const Service = makeService({
 
 export const Hooks: Partial<HooksObject> = {
   before: {
-    create: [ disallow() ], // TODO: Need some way to add companies
-    patch: [ disallow() ],  // TODO: Need some way to add questions to companies
-    remove: [ disallow() ]  // TODO: Need some way to remove companies
+    create: [disallow()], // TODO: Need some way to add companies
+    patch: [disallow()], // TODO: Need some way to add questions to companies
+    remove: [disallow()] // TODO: Need some way to remove companies
   }
 }
 

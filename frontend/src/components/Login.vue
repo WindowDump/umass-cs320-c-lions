@@ -46,6 +46,30 @@
             <v-container grid-list-md text-xs-center>
               <v-layout row wrap>
                 <v-flex xs6>
+                  <v-card-text class="text-xs-right">First Name:</v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="firstName"
+                    :rules="nameRules"
+                    label="Enter your first name..."
+                    box
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-card-text class="text-xs-right">Last Name:</v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="lastName"
+                    :rules="nameRules"
+                    label="Enter your last name..."
+                    box
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs6>
                   <v-card-text class="text-xs-right">Email:</v-card-text>
                 </v-flex>
                 <v-flex xs6>
@@ -110,6 +134,8 @@ export default Vue.extend({
     createEmail: '',
     createPwd: '',
     createPwdConfirm: '',
+    firstName: '',
+    lastName: '',
     emailRules: [
       (v: string) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -120,6 +146,11 @@ export default Vue.extend({
       (v: string) => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
         return regex.test(v) || 'Invalid password.'
+      }
+    ],
+    nameRules: [
+      (v: string) => {
+        return !!v || 'name is required'
       }
     ]
     //pwdMatch: (v: string) => {this.createPwd === this.createPwdConfirm || 'Passwords do not match'}
@@ -156,7 +187,9 @@ export default Vue.extend({
         if (available != null) {
           Axios.post('/users', {
             email: this.createEmail,
-            password: this.createPwd
+            password: this.createPwd,
+            firstName: this.firstName,
+            lastName: this.lastName
           })
           alert('Your account has been created! Please log in to continue')
         } else {

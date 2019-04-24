@@ -16,28 +16,34 @@ export const Schema = new Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  appliedUserIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  acceptedUserAnswers: [{
-    question: {
-      type: String,
-      required: true
-    },
-    answer: {
-      type: String,
-      required: true
+  appliedUserIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     }
-  }],
+  ],
+  acceptedUserAnswers: [
+    {
+      question: {
+        type: String,
+        required: true
+      },
+      answer: {
+        type: String,
+        required: true
+      }
+    }
+  ],
   parentPosisionId: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Position'
   },
-  subordinatePositionIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    ref: 'Position'
-  }],
+  subordinatePositionIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: 'Position'
+    }
+  ],
   title: {
     type: String,
     required: true
@@ -83,13 +89,11 @@ export const Hooks: Partial<HooksObject> = {
         'companyId'
       ),
       setCompanyId(),
-      (context) => {
+      context => {
         context.data.appliedUserIds = []
       }
     ],
-    remove: [
-      onlyCompanyManager()
-    ],
+    remove: [onlyCompanyManager()],
     patch: [
       discard(
         'subordinatePositionIds',
