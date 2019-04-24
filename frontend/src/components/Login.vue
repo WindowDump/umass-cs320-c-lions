@@ -63,7 +63,7 @@
                     v-model="createPwd"
                     :rules="pwdRules"
                     :type="'password'"
-                    label="Password must contain at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character. It must be at least 8 characters long"
+                    label="At least 1 lowercase, 1 uppercase, 1 numeric, 1 special character, 8 characters long"
                     box
                     required
                   ></v-text-field>
