@@ -100,8 +100,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import Axios from 'axios'
+import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
@@ -126,22 +126,19 @@ export default Vue.extend({
   }),
 
   methods: {
-    login: function() {
+    login: async function() {
       if ((this.$refs.loginForm as any).validate()) {
-        const available = Axios.get('/user', {
-          params: {
-            email: this.loginEmail,
-            password: this.loginPwd
-          }
+        const { status } = await Axios.post('/auth', {
+          strategy: 'local',
+          email: this.loginEmail,
+          password: this.loginPwd
         })
 
-        if (available != null) {
-          //Set appropriate globals
-
+        if (status === 201) {
           alert('Successful login')
-        } else {
-          alert('Error: your email and/or password do not match.')
-        }
+          const { data } = await Axios.get('/users/me')
+          ;(window as any).$user = { data }
+        } else alert('Error: Unable to login')
       } else {
         alert(
           'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
