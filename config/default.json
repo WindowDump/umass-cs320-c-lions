@@ -28,23 +28,6 @@
       "usernameField": "email",
       "passwordField": "password"
     },
-    "auth0": {
-      "clientID": "your auth0 client id",
-      "clientSecret": "your auth0 client secret",
-      "successRedirect": "/",
-      "domain": "mydomain.auth0.com",
-      "scopes": [
-        "profile"
-      ]
-    },
-    "google": {
-      "clientID": "your google client id",
-      "clientSecret": "your google client secret",
-      "successRedirect": "/",
-      "scope": [
-        "profile openid email"
-      ]
-    },
     "cookie": {
       "enabled": true,
       "name": "feathers-jwt",
