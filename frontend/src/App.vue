@@ -8,6 +8,9 @@
           <router-link to="/">Home</router-link>
         </v-btn>
         <v-btn flat>
+          <router-link to="/orgchart">OrgChart</router-link>
+        </v-btn>
+        <v-btn flat>
           <router-link to="/about">About</router-link>
         </v-btn>
         <v-btn flat>

@@ -46,6 +46,11 @@ export default new Router({
       path: '/onboarding',
       name: 'onboarding',
       component: () => import('./views/Onboarding.vue')
+    },
+    {
+      path: '/orgchart',
+      name: 'orgchart',
+      component: () => import('./views/OrgChart.vue')
     }
   ]
 })
