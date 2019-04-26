@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-tabs color="cyan" dark slider-color="yellow" centered>
+      <v-tabs v-model="active" color="cyan" dark slider-color="yellow" centered>
         <v-tab ripple>Login</v-tab>
         <v-tab-item column centered>
           <v-form
@@ -47,33 +47,9 @@
 
         <v-tab ripple>Create Account</v-tab>
         <v-tab-item>
-          <v-form ref="createForm" @submit="create" lazy-validation>
+          <v-form ref="form" @submit="create" v-model="valid" lazy-validation>
             <v-container grid-list-md text-xs-center>
               <v-layout row wrap>
-                <v-flex xs6>
-                  <v-card-text class="text-xs-right">First Name:</v-card-text>
-                </v-flex>
-                <v-flex xs6>
-                  <v-text-field
-                    v-model="firstName"
-                    :rules="nameRules"
-                    label="Enter your first name..."
-                    box
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs6>
-                  <v-card-text class="text-xs-right">Last Name:</v-card-text>
-                </v-flex>
-                <v-flex xs6>
-                  <v-text-field
-                    v-model="lastName"
-                    :rules="nameRules"
-                    label="Enter your last name..."
-                    box
-                    required
-                  ></v-text-field>
-                </v-flex>
                 <v-flex xs6>
                   <v-card-text class="text-xs-right">Email:</v-card-text>
                 </v-flex>
@@ -94,7 +70,7 @@
                     v-model="createPwd"
                     :rules="pwdRules"
                     :type="'password'"
-                    label="Password must contain at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character. It must be at least 8 characters long"
+                    label="At least 1 lowercase, 1 uppercase, 1 numeric, 1 special character, 8 characters long"
                     box
                     required
                   ></v-text-field>
@@ -129,8 +105,8 @@
 </template>
 
 <script lang="ts">
-import Axios from 'axios'
 import Vue from 'vue'
+import Axios from 'axios'
 
 export default Vue.extend({
   data: () => ({
@@ -152,11 +128,6 @@ export default Vue.extend({
       (v: string) => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
         return regex.test(v) || 'Invalid password.'
-      }
-    ],
-    nameRules: [
-      (v: string) => {
-        return !!v || 'name is required'
       }
     ]
     //pwdMatch: (v: string) => {this.createPwd === this.createPwdConfirm || 'Passwords do not match'}
@@ -185,29 +156,7 @@ export default Vue.extend({
       }
     },
     create: function() {
-      if ((this.$refs.createForm as any).validate()) {
-        const available = Axios.get('/user', {
-          params: {
-            email: this.createEmail
-          }
-        })
-
-        if (available != null) {
-          Axios.post('/users', {
-            email: this.createEmail,
-            password: this.createPwd,
-            firstName: this.firstName,
-            lastName: this.lastName
-          })
-          alert('Your account has been created! Please log in to continue')
-        } else {
-          alert('Email address is already in use.')
-        }
-      } else {
-        alert(
-          'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
-        )
-      }
+      alert('Account created!')
     }
   }
 })

@@ -10,40 +10,10 @@ const { hashPassword, protect } = LocalAuth.hooks
 
 export const Schema = new Mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      required: true
-    },
-    lastName: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true
-    },
-    workEmail: {
-      type: String,
-      unique: true,
-      lowercase: true
-    },
-    password: {
-      type: String,
-      required: true
-    },
-    isManager: {
-      type: Boolean
-    }, // TODO: Need some way to make a user a manager of a company
-    companyId: {
-      type: Mongoose.Schema.Types.ObjectId,
-      ref: 'Company'
-    },
-    positionId: {
-      type: Mongoose.Schema.Types.ObjectId,
-      ref: 'Position'
-    }
+    email: { type: String, unique: true, lowercase: true },
+    password: { type: String },
+    auth0Id: { type: String },
+    googleId: { type: String }
   },
   {
     timestamps: true
@@ -62,7 +32,7 @@ export const Hooks: Partial<HooksObject> = {
     create: [hashPassword()],
     update: [hashPassword(), authenticate('jwt')],
     patch: [hashPassword(), authenticate('jwt')],
-    remove: [authenticate('jwt'), usersMe()]
+    remove: [authenticate('jwt')]
   },
   after: { all: [protect('password')] }
 }
