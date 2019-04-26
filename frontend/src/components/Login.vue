@@ -4,7 +4,12 @@
       <v-tabs color="cyan" dark slider-color="yellow" centered>
         <v-tab ripple>Login</v-tab>
         <v-tab-item column centered>
-          <v-form ref="loginForm" @submit="login" lazy-validation>
+          <v-form
+            ref="loginForm"
+            @submit="login"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container grid-list-md text-xs-center>
               <v-layout row wrap>
                 <v-flex xs6>
@@ -31,7 +36,7 @@
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-btn class="btn-login" @click="login" color="success"
+                  <v-btn class="bt-submit" type="submit" color="success"
                     >Login</v-btn
                   >
                 </v-flex>
@@ -110,8 +115,8 @@
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-btn class="btn-create" type="submit" color="success"
-                    >Create</v-btn
+                  <v-btn class="bt-submit" type="submit" color="success"
+                    >Create Account</v-btn
                   >
                 </v-flex>
               </v-layout>
@@ -136,6 +141,7 @@ export default Vue.extend({
     createPwdConfirm: '',
     firstName: '',
     lastName: '',
+    valid: false,
     emailRules: [
       (v: string) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -168,7 +174,9 @@ export default Vue.extend({
         if (status === 201) {
           alert('Successful login')
           const { data } = await Axios.get('/users/me')
+          console.log((window as any).$user)
           ;(window as any).$user = { data }
+          console.log((window as any).$user)
         } else alert('Error: Unable to login')
       } else {
         alert(

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-toolbar>
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title>HierArchy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat>
@@ -16,9 +16,16 @@
         <v-btn flat>
           <router-link to="/addPosition">Add a New Position</router-link>
         </v-btn>
-        <v-btn flat>
-          <router-link to="/login">Login</router-link>
-        </v-btn>
+        <template v-if="win === undefined">
+          <v-btn flat>
+            <router-link to="/login">Login</router-link>
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-btn @click="logout" flat>
+            Logout
+          </v-btn>
+        </template>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -29,6 +36,22 @@
     <v-footer app></v-footer>
   </div>
 </template>
+
+<script lang="ts">
+import Axios from 'axios'
+import Vue from 'vue'
+
+export default Vue.extend({
+  data: () => ({
+    win: (window as any).$user
+  }),
+  methods: {
+    logout: function() {
+      ;(window as any).$user = undefined
+    }
+  }
+})
+</script>
 
 <style lang="scss">
 #app {
