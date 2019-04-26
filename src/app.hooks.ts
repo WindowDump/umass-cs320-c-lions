@@ -1,6 +1,8 @@
 import { HookMap, HooksObject } from '@feathersjs/feathers'
-import { disallow } from 'feathers-hooks-common'
+import * as commonHooks from 'feathers-hooks-common'
 import log from './hooks/log'
+
+const { iff } = commonHooks
 
 export default {
   before: {
@@ -8,7 +10,7 @@ export default {
     find: [],
     get: [],
     create: [],
-    update: [disallow()],
+    update: [],
     patch: [],
     remove: []
   },
