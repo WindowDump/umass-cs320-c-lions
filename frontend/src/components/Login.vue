@@ -146,7 +146,7 @@ export default Vue.extend({
           alert('Successful login')
           const { data } = await Axios.get('/users/me')
           console.log((window as any).$user)
-          ;(window as any).$user = { data }
+          ;(window as any).$user = data
           console.log((window as any).$user)
         } else alert('Error: Unable to login')
       } else {
