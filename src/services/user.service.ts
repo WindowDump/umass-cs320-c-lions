@@ -10,10 +10,11 @@ const { hashPassword, protect } = LocalAuth.hooks
 
 export const Schema = new Mongoose.Schema(
   {
+    firstName: { type: String },
+    lastName: { type: String },
     email: { type: String, unique: true, lowercase: true },
     password: { type: String },
-    auth0Id: { type: String },
-    googleId: { type: String }
+    isManager: { type: Boolean }
   },
   {
     timestamps: true

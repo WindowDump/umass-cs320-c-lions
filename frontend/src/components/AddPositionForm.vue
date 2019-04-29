@@ -4,7 +4,7 @@
       <v-container>
         <v-form
           ref="form"
-          @submit="positionSubmit"
+          @submit.prevent="positionSubmit"
           v-model="valid"
           lazy-validation
         >
