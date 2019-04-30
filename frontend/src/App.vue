@@ -11,7 +11,7 @@
           <router-link to="/about">About</router-link>
         </v-btn>
         <v-btn flat>
-          <router-link to="/companies">Companies</router-link>
+          <router-link to="/import">Import Data...</router-link>
         </v-btn>
         <v-btn flat>
           <router-link to="/addPosition">Add a New Position</router-link>

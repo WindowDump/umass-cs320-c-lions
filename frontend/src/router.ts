@@ -23,9 +23,9 @@ export default new Router({
         import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/companies',
-      name: 'companies',
-      component: () => import('./views/Companies.vue')
+      path: '/import',
+      name: 'import',
+      component: () => import('./views/Import.vue')
     },
     {
       path: '/addPosition',
