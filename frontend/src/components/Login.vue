@@ -177,7 +177,10 @@ export default Vue.extend({
       }
     },
     create: function() {
-      if ((this.$refs.createForm as any).validate()) {
+      if (
+        (this.$refs.createForm as any).validate() &&
+        this.createPwd == this.createPwdConfirm
+      ) {
         Axios.post('/users', {
           email: this.createEmail,
           password: this.createPwd,
