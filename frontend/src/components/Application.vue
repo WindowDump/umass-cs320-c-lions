@@ -1,17 +1,23 @@
 <template>
   <h1>
     TEST APPLICATION
-    <form @submit.prevent="onSubmit">
-      <div v-for="requirement in this.requirements" :key="requirement.name">
+    <form @submit.prevent="submit()">
+      <div
+        v-for="(requirement, index) in this.requirements"
+        :key="requirement.name"
+      >
         <appForm
           class="appForm"
           :name="requirement.name"
           :question="requirement.question"
           :questionType="requirement.questionType"
-          :results="this.results"
-          @app-submitted="onSubmit"
+          :index="index"
+          @updateValue="setResultAtIndex"
         ></appForm>
       </div>
+      <button>
+        <input type="submit" />
+      </button>
     </form>
   </h1>
 </template>
@@ -24,19 +30,27 @@ import { application } from 'express'
 import { create } from 'domain'
 
 export default Vue.extend({
-  props: ['requirements', 'userId', 'posId', 'results'],
+  components: {
+    appForm
+  },
+  props: ['requirements', 'userId', 'posId', 'onSubmit'],
   data() {
     return {
       application: {
-        results: this.results,
+        results: [] as string[],
         userId: this.userId,
         posId: this.posId
       }
     }
   },
   methods: {
-    onSubmit: function() {
-      this.$emit('app-sumbitted', this.results)
+    setResultAtIndex: function(index: number, result: string) {
+      console.log(`CALLING LAMBDA AT INDEX ${index}: RESULT IS ${result}`)
+      this.application.results[index] = result
+    },
+    submit: function() {
+      console.log('SUBMITTING FROM WITHIN APPLICATION.VUE')
+      this.$emit('onSubmit', this.application.results)
     }
   }
 })

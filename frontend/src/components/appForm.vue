@@ -1,18 +1,34 @@
 <template>
-  <form class="appForm" @app-submitted="onSubmit">
+  <form class="appForm">
     <p v-if="isShort">
       <label for="result">{{ question }}:</label>
-      <input id="result" v-model="result" placeholder="answer here" required />
+      <input
+        id="result"
+        v-model="result"
+        placeholder="answer here"
+        required
+        @input="updateValue()"
+      />
     </p>
 
     <p v-else-if="isLong">
       <label for="result">{{ question }}:</label>
-      <textarea id="result" v-model="result" required></textarea>
+      <textarea
+        id="result"
+        v-model="result"
+        required
+        @input="updateValue()"
+      ></textarea>
     </p>
 
     <p v-else>
       <label for="result">{{ question }}:</label>
-      <select id="result" v-model.number="result" required>
+      <select
+        id="result"
+        v-model.number="result"
+        required
+        @change="updateValue()"
+      >
         <option>5</option>
         <option>4</option>
         <option>3</option>
@@ -27,7 +43,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  props: ['name', 'questionType', 'question', 'results'],
+  props: ['name', 'questionType', 'question', 'index'],
   data() {
     return {
       result: ''
@@ -35,16 +51,20 @@ export default Vue.extend({
   },
   methods: {
     isShort() {
+      console.log('SUBMIT FN:', this.updateValue)
       return this.questionType == 'short'
     },
     isLong() {
+      console.log('SUBMIT FN:', this.updateValue)
       return this.questionType == 'long'
     },
     isMult() {
+      console.log('SUBMIT FN:', this.updateValue)
       return this.questionType == 'mult'
     },
-    onSubmit() {
-      this.$emit('add-result', String(this.result))
+    updateValue() {
+      console.log('VALUE CHANGED', this.index, this.result)
+      this.$emit('updateValue', this.index, this.result)
     }
   }
 })
