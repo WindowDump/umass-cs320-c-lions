@@ -23,10 +23,10 @@
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex sx6>
+                <v-flex xs6>
                   <v-card-text class="text-xs-right">Password:</v-card-text>
                 </v-flex>
-                <v-flex sx6>
+                <v-flex xs6>
                   <v-text-field
                     v-model="loginPwd"
                     :type="'password'"
@@ -49,7 +49,7 @@
         <v-tab-item>
           <v-form
             ref="createForm"
-            @submit="create"
+            @submit.prevent="create"
             v-model="valid"
             lazy-validation
           >
@@ -114,11 +114,19 @@
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12>
-                  <v-checkbox
-                    v-model="isManager"
-                    :label="'are you a manager?'"
-                  ></v-checkbox>
+                <v-flex xs6>
+                  <v-card-text class="text-xs-right">
+                    Company to Manage:
+                  </v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select
+                    v-model="managerOf"
+                    :items="companyNames"
+                    label="Company to manage..."
+                    box
+                    required
+                  ></v-select>
                 </v-flex>
                 <v-flex xs12>
                   <v-btn class="bt-submit" type="submit" color="success"
@@ -147,8 +155,10 @@ export default Vue.extend({
     createPwdConfirm: '',
     firstName: '',
     lastName: '',
-    isManager: false,
+    managerOf: null,
     valid: false,
+    companies: [{ name: 'None', _id: undefined }],
+    companyNames: ['None'],
     emailRules: [
       (v: string) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -157,8 +167,17 @@ export default Vue.extend({
     ]
   }),
 
+  async created() {
+    console.log('RUNNING CREATE HOOK')
+    const { data } = await Axios.get('/companies')
+    this.companies.push(...data)
+    this.companyNames.push(...data.map((c: any) => c.name))
+    console.log('DATA', data)
+    console.log('NEW COMPANIES', this.companies)
+  },
+
   methods: {
-    login: async function() {
+    async login() {
       if ((this.$refs.loginForm as any).validate()) {
         try {
           const { status } = await Axios.post('/auth', {
@@ -176,17 +195,17 @@ export default Vue.extend({
         )
       }
     },
-    create: function() {
-      if (
-        (this.$refs.createForm as any).validate() &&
-        this.createPwd == this.createPwdConfirm
-      ) {
+    async create() {
+      if ((this.$refs.createForm as any).validate()) {
+        const company = this.companies.find(
+          (c: any) => c.name === this.managerOf
+        )
         Axios.post('/users', {
           email: this.createEmail,
           password: this.createPwd,
           firstName: this.firstName,
           lastName: this.lastName,
-          isManager: this.isManager
+          managerOf: company && company._id
         })
         alert('Your account has been created! Please log in to continue')
       } else {
