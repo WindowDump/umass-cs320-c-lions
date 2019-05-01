@@ -51,6 +51,11 @@ export default new Router({
       path: '/application',
       name: 'application',
       component: () => import('./views/ApplicationTest.vue')
+    },
+    {
+      path: '/orgchart',
+      name: 'orgchart',
+      component: () => import('./views/OrgChart.vue')
     }
   ]
 })
