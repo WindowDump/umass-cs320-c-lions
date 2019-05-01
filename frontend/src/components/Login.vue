@@ -6,7 +6,7 @@
         <v-tab-item column centered>
           <v-form
             ref="loginForm"
-            @submit="login"
+            @submit.prevent="login"
             v-model="valid"
             lazy-validation
           >
@@ -167,9 +167,7 @@ export default Vue.extend({
         })
 
         if (status === 201) {
-          alert('Successful login')
-          const { data } = await Axios.get('/users/me')
-          ;(window as any).$user = data
+          location.href = '/'
         } else alert('Error: Unable to login')
       } else {
         alert(
