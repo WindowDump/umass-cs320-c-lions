@@ -1,6 +1,6 @@
 <template>
   <div>
-    <organization-chart :datasource="ds"></organization-chart>
+    <organization-chart :datasource="ds" pan="true"></organization-chart>
   </div>
 </template>
 
@@ -15,6 +15,8 @@ export default {
   },
   data() {
     return {
+      poslist: null,
+      //ds: makeChart()
       ds: {
         id: '1',
         name: 'Lao Lao',
@@ -42,6 +44,17 @@ export default {
           { id: '9', name: 'Chun Miao', title: 'department manager' }
         ]
       }
+    }
+  },
+  async mounted() {
+    // const { data } = await Axios.get('/positions')
+    // this.poslist = data
+    this.makeChart()
+  },
+  methods: {
+    makeChart: function() {
+      //alert("Make chart called!")
+      return 2
     }
   }
 }
