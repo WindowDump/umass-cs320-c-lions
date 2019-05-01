@@ -4,19 +4,19 @@
       <v-toolbar-title>HierArchy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>
+        <v-btn flat @click="redirect('/')">
           <router-link to="/">Home</router-link>
         </v-btn>
-        <v-btn flat>
+        <v-btn flat @click="redirect('/orgchart')">
           <router-link to="/orgchart">OrgChart</router-link>
         </v-btn>
-        <v-btn flat>
+        <v-btn flat @click="redirect('/about')">
           <router-link to="/about">About</router-link>
         </v-btn>
-        <v-btn flat>
+        <v-btn flat @click="redirect('/import')">
           <router-link to="/import">Import Data...</router-link>
         </v-btn>
-        <v-btn flat>
+        <v-btn flat @click="redirect('/addPosition')">
           <router-link to="/addPosition">Add a New Position</router-link>
         </v-btn>
         <v-btn @click="logout" flat>
@@ -49,6 +49,9 @@ export default Vue.extend({
         // No err. Sometimes logout returns HTTP 401
       }
       location.href = '/login'
+    },
+    redirect(path: string) {
+      this.$router.push(path)
     }
   }
 })
