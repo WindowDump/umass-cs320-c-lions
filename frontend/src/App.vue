@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-toolbar>
+    <v-toolbar v-if="user">
       <v-toolbar-title>HierArchy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
@@ -19,16 +19,9 @@
         <v-btn flat>
           <router-link to="/addPosition">Add a New Position</router-link>
         </v-btn>
-        <template v-if="win === undefined">
-          <v-btn flat>
-            <router-link to="/login">Login</router-link>
-          </v-btn>
-        </template>
-        <template v-else>
-          <v-btn @click="logout" flat>
-            Logout
-          </v-btn>
-        </template>
+        <v-btn @click="logout" flat>
+          Logout
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -46,11 +39,16 @@ import Vue from 'vue'
 
 export default Vue.extend({
   data: () => ({
-    win: (window as any).$user
+    user: (window as any).$user
   }),
   methods: {
-    logout: function() {
-      ;(window as any).$user = undefined
+    async logout() {
+      try {
+        await Axios.delete('/auth')
+      } catch (e) {
+        // No err. Sometimes logout returns HTTP 401
+      }
+      location.href = '/login'
     }
   }
 })
@@ -63,10 +61,12 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-#nav {
+nav {
+  div,
   a {
     font-weight: bold;
     color: #2c3e50;
+    text-decoration: none;
     &.router-link-exact-active {
       color: #42b983;
     }

@@ -6,7 +6,7 @@
         <v-tab-item column centered>
           <v-form
             ref="loginForm"
-            @submit="login"
+            @submit.prevent="login"
             v-model="valid"
             lazy-validation
           >
@@ -160,17 +160,16 @@ export default Vue.extend({
   methods: {
     login: async function() {
       if ((this.$refs.loginForm as any).validate()) {
-        const { status } = await Axios.post('/auth', {
-          strategy: 'local',
-          email: this.loginEmail,
-          password: this.loginPwd
-        })
-
-        if (status === 201) {
-          alert('Successful login')
-          const { data } = await Axios.get('/users/me')
-          ;(window as any).$user = data
-        } else alert('Error: Unable to login')
+        try {
+          const { status } = await Axios.post('/auth', {
+            strategy: 'local',
+            email: this.loginEmail,
+            password: this.loginPwd
+          })
+          location.href = '/'
+        } catch (e) {
+          alert('Error: Invalid email/password combination')
+        }
       } else {
         alert(
           'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
@@ -178,7 +177,10 @@ export default Vue.extend({
       }
     },
     create: function() {
-      if ((this.$refs.createForm as any).validate()) {
+      if (
+        (this.$refs.createForm as any).validate() &&
+        this.createPwd == this.createPwdConfirm
+      ) {
         Axios.post('/users', {
           email: this.createEmail,
           password: this.createPwd,
