@@ -59,6 +59,7 @@ export default Vue.extend({
   color: #2c3e50;
 }
 nav {
+  div,
   a {
     font-weight: bold;
     color: #2c3e50;
