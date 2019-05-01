@@ -4,7 +4,7 @@
       <v-container>
         <v-form
           ref="form"
-          @submit="positionSubmit"
+          @submit.prevent="positionSubmit"
           v-model="valid"
           lazy-validation
         >
@@ -187,23 +187,21 @@ export default Vue.extend({
 
   methods: {
     positionSubmit: function(event: Event) {
-      //if ((this.$refs.form as Vue).validate()){
+      if ((this.$refs.form as any).validate()) {
+        Axios.post('/positions', {
+          title: this.theTitle,
+          description: this.theDesc,
+          payRange: this.theRange,
+          jobType: this.theType,
+          startDate: this.theStart,
+          postingDate: new Date().toISOString().substr(0, 10),
+          postingExpirationDate: this.theExp
+        })
 
-      Axios.post('/positions', {
-        title: this.theTitle,
-        description: this.theDesc,
-        payRange: this.theRange,
-        jobType: this.theType,
-        startDate: this.theStart,
-        postingDate: new Date().toISOString().substr(0, 10),
-        postingExpirationDate: this.theExp
-      })
-
-      alert('A new position has been added!')
-
-      // }else{
-      //   alert('Some fields are not filled out correctly. Unable to submit.')
-      // }
+        alert('A new position has been added!')
+      } else {
+        alert('Some fields are not filled out correctly. Unable to submit.')
+      }
     }
   }
 })

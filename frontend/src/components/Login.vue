@@ -1,48 +1,82 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-tabs v-model="active" color="cyan" dark slider-color="yellow" centered>
+      <v-tabs color="cyan" dark slider-color="yellow" centered>
         <v-tab ripple>Login</v-tab>
         <v-tab-item column centered>
-          <v-container grid-list-md text-xs-center>
-            <v-layout row wrap>
-              <v-flex xs6>
-                <v-card-text class="text-xs-right">Email:</v-card-text>
-              </v-flex>
-              <v-flex xs6>
-                <v-text-field
-                  v-model="loginEmail"
-                  label="Enter email..."
-                  box
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex sx6>
-                <v-card-text class="text-xs-right">Password:</v-card-text>
-              </v-flex>
-              <v-flex sx6>
-                <v-text-field
-                  v-model="loginPwd"
-                  :type="'password'"
-                  label="Enter password..."
-                  box
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-btn class="btn-login" @click="login" color="success"
-                  >Login</v-btn
-                >
-              </v-flex>
-            </v-layout>
-          </v-container>
+          <v-form
+            ref="loginForm"
+            @submit="login"
+            v-model="valid"
+            lazy-validation
+          >
+            <v-container grid-list-md text-xs-center>
+              <v-layout row wrap>
+                <v-flex xs6>
+                  <v-card-text class="text-xs-right">Email:</v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="loginEmail"
+                    label="Enter email..."
+                    box
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex sx6>
+                  <v-card-text class="text-xs-right">Password:</v-card-text>
+                </v-flex>
+                <v-flex sx6>
+                  <v-text-field
+                    v-model="loginPwd"
+                    :type="'password'"
+                    label="Enter password..."
+                    box
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-btn class="bt-submit" type="submit" color="success"
+                    >Login</v-btn
+                  >
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-form>
         </v-tab-item>
 
         <v-tab ripple>Create Account</v-tab>
         <v-tab-item>
-          <v-form ref="form" @submit="create" v-model="valid" lazy-validation>
+          <v-form
+            ref="createForm"
+            @submit="create"
+            v-model="valid"
+            lazy-validation
+          >
             <v-container grid-list-md text-xs-center>
               <v-layout row wrap>
+                <v-flex xs6>
+                  <v-card-text class="text-xs-right">First Name:</v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="firstName"
+                    label="Enter first name..."
+                    box
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs6>
+                  <v-card-text class="text-xs-right">Last Name:</v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="lastName"
+                    label="Enter last name..."
+                    box
+                    required
+                  ></v-text-field>
+                </v-flex>
                 <v-flex xs6>
                   <v-card-text class="text-xs-right">Email:</v-card-text>
                 </v-flex>
@@ -61,9 +95,7 @@
                 <v-flex xs6>
                   <v-text-field
                     v-model="createPwd"
-                    :rules="pwdRules"
                     :type="'password'"
-                    label="Password must contain at least 1 lowercase, 1 uppercase, 1 numeric, and 1 special character. It must be at least 8 characters long"
                     box
                     required
                   ></v-text-field>
@@ -76,7 +108,6 @@
                 <v-flex xs6>
                   <v-text-field
                     v-model="createPwdConfirm"
-                    :rules="pwdRules"
                     :type="'password'"
                     label="Confirm password..."
                     box
@@ -84,8 +115,14 @@
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-btn class="btn-create" type="submit" color="success"
-                    >Create</v-btn
+                  <v-checkbox
+                    v-model="isManager"
+                    :label="'are you a manager?'"
+                  ></v-checkbox>
+                </v-flex>
+                <v-flex xs12>
+                  <v-btn class="bt-submit" type="submit" color="success"
+                    >Create Account</v-btn
                   >
                 </v-flex>
               </v-layout>
@@ -99,6 +136,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Axios from 'axios'
 
 export default Vue.extend({
   data: () => ({
@@ -107,25 +145,53 @@ export default Vue.extend({
     createEmail: '',
     createPwd: '',
     createPwdConfirm: '',
+    firstName: '',
+    lastName: '',
+    isManager: false,
+    valid: false,
     emailRules: [
       (v: string) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return regex.test(v) || 'Invalid e-mail.'
       }
-    ],
-    pwdRules: [
-      (v: string) => {
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
-        return regex.test(v) || 'Invalid password.'
-      }
     ]
-    //pwdMatch: (v: string) => {this.createPwd === this.createPwdConfirm || 'Passwords do not match'}
   }),
 
   methods: {
-    login: function() {},
+    login: async function() {
+      if ((this.$refs.loginForm as any).validate()) {
+        const { status } = await Axios.post('/auth', {
+          strategy: 'local',
+          email: this.loginEmail,
+          password: this.loginPwd
+        })
+
+        if (status === 201) {
+          alert('Successful login')
+          const { data } = await Axios.get('/users/me')
+          ;(window as any).$user = data
+        } else alert('Error: Unable to login')
+      } else {
+        alert(
+          'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
+        )
+      }
+    },
     create: function() {
-      alert('Account created!')
+      if ((this.$refs.createForm as any).validate()) {
+        Axios.post('/users', {
+          email: this.createEmail,
+          password: this.createPwd,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          isManager: this.isManager
+        })
+        alert('Your account has been created! Please log in to continue')
+      } else {
+        alert(
+          'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
+        )
+      }
     }
   }
 })

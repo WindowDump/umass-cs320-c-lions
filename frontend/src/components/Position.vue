@@ -13,7 +13,7 @@
     </v-card-text>
     <v-card-actions>
       <form @submit="removepos" id="positionForm">
-        <v-btn class="btn-apply" color="green">Delete</v-btn>
+        <v-btn class="bt-submit" type="submit" color="green">Delete</v-btn>
       </form>
       <v-btn to="/apply" color="blue">Apply</v-btn>
     </v-card-actions>
@@ -34,10 +34,12 @@ export default Vue.extend({
     'postingDate',
     'postingExpirationDate'
   ],
-  data: () => ({}),
+  data: () => ({
+    user: (window as any).$user
+  }),
   methods: {
-    removepos: async function(event: Event) {
-      const { data } = await Axios.delete('/positions/' + this.id)
+    removepos: function(event: Event) {
+      Axios.delete('/positions/' + this.id)
     }
   }
 })
