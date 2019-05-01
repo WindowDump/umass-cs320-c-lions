@@ -4,12 +4,12 @@ import { HooksObject } from '@feathersjs/feathers'
 import { discard, iff } from 'feathers-hooks-common'
 
 import onlyCompanyManager from '../hooks/onlyCompanyManager'
-import linkToManager from '../hooks/linkToManager'
+import linkToParent from '../hooks/linkToParent'
+import attachChildrenToParent from '../hooks/attachChildrenToParent'
 import acceptEmployee from '../hooks/acceptEmployee'
 import applyToPosition from '../hooks/applyToPosition'
 import acceptPosition from '../hooks/acceptPosition'
 import rejectPosition from '../hooks/rejectPosition'
-import setCompanyId from '../hooks/setCompanyId'
 
 export const Schema = new Mongoose.Schema({
   companyId: {
@@ -73,8 +73,7 @@ export const Hooks: Partial<HooksObject> = {
         'hiredUserId',
         'hiredUserAnswers'
       ),
-      setCompanyId(),
-      linkToManager(),
+      linkToParent(),
       (context) => {
         context.data.appliedUserIds = []
         context.data.acceptedUserIds = []
@@ -84,7 +83,7 @@ export const Hooks: Partial<HooksObject> = {
       }
     ],
     remove: [
-      onlyCompanyManager()
+      attachChildrenToParent()
     ],
     patch: [
       discard(

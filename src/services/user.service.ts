@@ -4,9 +4,8 @@ import { HooksObject } from '@feathersjs/feathers'
 import Auth from '@feathersjs/authentication'
 import LocalAuth from '@feathersjs/authentication-local'
 import usersMe from '../hooks/usersMe'
-import onlyCompanyManager from '../hooks/onlyCompanyManager'
 import protectApplications from '../hooks/protectApplications'
-import { discard, disallow } from 'feathers-hooks-common/types'
+import { discard, disallow } from 'feathers-hooks-common'
 
 const { authenticate } = Auth.hooks
 const { hashPassword, protect } = LocalAuth.hooks
@@ -15,7 +14,7 @@ export const Schema = new Mongoose.Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    
+
     email: { type: String, unique: true, lowercase: true, required: true },
     password: { type: String, required: true },
 
@@ -46,16 +45,22 @@ export const Service = makeService({
 
 export const Hooks: Partial<HooksObject> = {
   before: {
-    all: [
+    find: [ authenticate('jwt') ],
+    get: [ authenticate('jwt'), usersMe() ],
+    create: [
+      hashPassword(),
       discard(
         'appliedPositionIds',
         'availablePositionIds'
       )
     ],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt'), usersMe() ],
-    create: [ hashPassword() ],
-    patch: [ disallow('rest') ],
+    patch: [
+      disallow('rest'),
+      discard(
+        'appliedPositionIds',
+        'availablePositionIds'
+      )
+    ],
     remove: [ authenticate('jwt'), usersMe() ]
   },
   after: { all: [protect('password'), protectApplications()] }
