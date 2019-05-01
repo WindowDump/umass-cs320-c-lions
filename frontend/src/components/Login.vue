@@ -160,15 +160,16 @@ export default Vue.extend({
   methods: {
     login: async function() {
       if ((this.$refs.loginForm as any).validate()) {
-        const { status } = await Axios.post('/auth', {
-          strategy: 'local',
-          email: this.loginEmail,
-          password: this.loginPwd
-        })
-
-        if (status === 201) {
+        try {
+          const { status } = await Axios.post('/auth', {
+            strategy: 'local',
+            email: this.loginEmail,
+            password: this.loginPwd
+          })
           location.href = '/'
-        } else alert('Error: Unable to login')
+        } catch (e) {
+          alert('Error: Invalid email/password combination')
+        }
       } else {
         alert(
           'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
