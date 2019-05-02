@@ -52,6 +52,7 @@
     "passport-auth0": "^1.1.0",
     "passport-google-oauth20": "^2.0.0",
     "serve-favicon": "^2.5.0",
+    "vue-organization-chart": "^1.1.5",
     "winston": "^3.0.0"
   },
   "devDependencies": {
