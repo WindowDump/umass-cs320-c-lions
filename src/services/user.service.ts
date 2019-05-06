@@ -6,6 +6,7 @@ import LocalAuth from '@feathersjs/authentication-local'
 import usersMe from '../hooks/usersMe'
 import protectApplications from '../hooks/protectApplications'
 import { discard, disallow } from 'feathers-hooks-common'
+import setCanImportData from 'src/hooks/setCanImportData';
 
 const { authenticate } = Auth.hooks
 const { hashPassword, protect } = LocalAuth.hooks
@@ -14,6 +15,7 @@ export const Schema = new Mongoose.Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    canImportData: { type: Boolean, required: true },
 
     email: { type: String, unique: true, lowercase: true, required: true },
     password: { type: String, required: true },
@@ -50,9 +52,11 @@ export const Hooks: Partial<HooksObject> = {
     create: [
       hashPassword(),
       discard(
+        'canImportData',
         'appliedPositionIds',
         'availablePositionIds'
-      )
+      ),
+      setCanImportData()
     ],
     patch: [
       disallow('rest'),
