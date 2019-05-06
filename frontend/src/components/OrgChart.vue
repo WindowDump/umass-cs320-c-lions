@@ -1,6 +1,6 @@
 <template>
   <div>
-    <organization-chart :datasource="ds" pan="true"></organization-chart>
+    <organization-chart :datasource="ds" :pan="true"></organization-chart>
   </div>
 </template>
 
@@ -8,6 +8,8 @@
 import Vue from 'vue'
 import OrganizationChart from 'vue-organization-chart'
 import 'vue-organization-chart/dist/orgchart.css'
+import { noSubselectionAllowedMessage } from 'graphql/validation/rules/ScalarLeafs'
+import Axios from 'axios'
 
 export default {
   components: {
@@ -16,8 +18,25 @@ export default {
   data() {
     return {
       poslist: null,
-      //ds: makeChart()
-      ds: {
+      userlist: null,
+      ds: {}
+    }
+  },
+  async mounted() {
+    const { posdata } = await Axios.get('/positions')
+    this.poslist = posdata
+    const { userdata } = await Axios.get('/users')
+    this.userlist = userdata
+    this.ds = this.makeStaticChart()
+    //this.ds = this.makeChart()
+  },
+  methods: {
+    makeChart: function() {
+      return {}
+    },
+    //for testing purposes only, will be deleted later
+    makeStaticChart: function() {
+      return {
         id: '1',
         name: 'Lao Lao',
         title: 'general manager',
@@ -44,17 +63,6 @@ export default {
           { id: '9', name: 'Chun Miao', title: 'department manager' }
         ]
       }
-    }
-  },
-  async mounted() {
-    // const { data } = await Axios.get('/positions')
-    // this.poslist = data
-    this.makeChart()
-  },
-  methods: {
-    makeChart: function() {
-      //alert("Make chart called!")
-      return 2
     }
   }
 }
