@@ -20,12 +20,12 @@ export const Schema = new Mongoose.Schema({
 
   parentPositionId: {
     type: Mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Position'
   },
   subordinatePositionIds: [{
     type: Mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'Position'
   }],
 
   appliedUserIds: [{
