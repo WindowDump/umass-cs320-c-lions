@@ -6,7 +6,7 @@ import LocalAuth from '@feathersjs/authentication-local'
 import usersMe from '../hooks/usersMe'
 import protectApplications from '../hooks/protectApplications'
 import { discard, disallow } from 'feathers-hooks-common'
-import setCanImportData from 'src/hooks/setCanImportData';
+import setCanImportData from '../hooks/setCanImportData'
 
 const { authenticate } = Auth.hooks
 const { hashPassword, protect } = LocalAuth.hooks
