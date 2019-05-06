@@ -121,7 +121,7 @@
                 </v-flex>
                 <v-flex xs6>
                   <v-select
-                    v-model="managerOf"
+                    v-model="managedCompanyId"
                     :items="companyNames"
                     label="Company to manage..."
                     box
@@ -155,7 +155,7 @@ export default Vue.extend({
     createPwdConfirm: '',
     firstName: '',
     lastName: '',
-    managerOf: null,
+    managedCompanyId: null,
     valid: false,
     companies: [{ name: 'None', _id: undefined }],
     companyNames: ['None'],
@@ -198,14 +198,14 @@ export default Vue.extend({
     async create() {
       if ((this.$refs.createForm as any).validate()) {
         const company = this.companies.find(
-          (c: any) => c.name === this.managerOf
+          (c: any) => c.name === this.managedCompanyId
         )
         Axios.post('/users', {
           email: this.createEmail,
           password: this.createPwd,
           firstName: this.firstName,
           lastName: this.lastName,
-          managerOf: company && company._id
+          managedCompanyId: company && company._id
         })
         alert('Your account has been created! Please log in to continue')
       } else {
