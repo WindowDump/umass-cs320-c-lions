@@ -196,7 +196,10 @@ export default Vue.extend({
       }
     },
     async create() {
-      if ((this.$refs.createForm as any).validate()) {
+      if (
+        (this.$refs.createForm as any).validate() &&
+        this.createPwd == this.createPwdConfirm
+      ) {
         const company = this.companies.find(
           (c: any) => c.name === this.managedCompanyId
         )
