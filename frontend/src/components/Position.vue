@@ -16,6 +16,11 @@
         <v-btn class="bt-submit" type="submit" color="green">Delete</v-btn>
       </form>
       <v-btn to="/apply" color="blue">Apply</v-btn>
+      <form @submit="editpos" id="positionForm">
+        <v-btn class="bt-submit" type="submit" color="purple"
+          >Apply One Click</v-btn
+        >
+      </form>
     </v-card-actions>
   </v-card>
 </template>
@@ -40,6 +45,12 @@ export default Vue.extend({
   methods: {
     removepos: function(event: Event) {
       Axios.delete('/positions/' + this.id)
+    },
+    editpos: function(event: Event) {
+      Axios.patch('/positions/' + this.id, {
+        title: 'title',
+        description: 'new description'
+      })
     }
   }
 })
