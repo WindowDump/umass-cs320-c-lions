@@ -14,6 +14,8 @@ import { Application } from '@feathersjs/express'
  */
 export interface IApp {
   users: {
+    _id: string
+
     firstName: string
     lastName: string
     canImportData: boolean
@@ -28,6 +30,8 @@ export interface IApp {
   }
 
   positions: {
+    _id: string
+
     companyId: string
 
     parentPositionId: string
@@ -49,6 +53,8 @@ export interface IApp {
   }
 
   companies: {
+    _id: string
+
     name: string
     questions: string[]
   }
