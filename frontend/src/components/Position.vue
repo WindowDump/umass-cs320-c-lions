@@ -15,7 +15,7 @@
       <form @submit="removepos" id="positionForm">
         <v-btn class="bt-submit" type="submit" color="green">Delete</v-btn>
       </form>
-      <v-btn to="/apply" color="blue">Apply</v-btn>
+      <v-btn @click="passV()" color="blue">Edit</v-btn>
       <form @submit="editpos" id="positionForm">
         <v-btn class="bt-submit" type="submit" color="purple"
           >Apply One Click</v-btn
@@ -28,6 +28,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Axios from 'axios'
+import { describe } from 'mocha'
 export default Vue.extend({
   props: [
     'id',
@@ -45,6 +46,29 @@ export default Vue.extend({
   methods: {
     removepos: function(event: Event) {
       Axios.delete('/positions/' + this.id)
+    },
+    passV: function(event: Event) {
+      let id = this.id
+      let title = this.title
+      let description = this.description
+      let payRange = this.payRange
+      let jobType = this.jobType
+      let startDate = this.startDate
+      let postingDate = this.postingDate
+      let postingExpirationDate = this.postingExpirationDate
+
+      this.$router.replace({
+        name: 'editPosition',
+        params: {
+          id,
+          title,
+          description,
+          payRange,
+          jobType,
+          startDate,
+          postingExpirationDate
+        }
+      })
     },
     editpos: function(event: Event) {
       Axios.patch('/positions/' + this.id, {

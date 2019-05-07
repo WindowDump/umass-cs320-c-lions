@@ -46,6 +46,12 @@ export default new Router({
       path: '/onboarding',
       name: 'onboarding',
       component: () => import('./views/Onboarding.vue')
+    },
+    {
+      path: '/editPosition',
+      name: 'editPosition',
+      component: () => import('./views/EditPosition.vue'),
+      props: true
     }
   ]
 })
