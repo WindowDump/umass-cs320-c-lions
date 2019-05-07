@@ -2,7 +2,7 @@
   <div class="apply">
     <center>
       <h1 id="title">
-        <font color="white">
+        <font>
           Application Page
         </font>
       </h1>

@@ -96,7 +96,7 @@ export default Vue.extend({
 </script>
 
 <style>
-.ApplyForm {
+/* .ApplyForm {
   display: flex;
   justify-content: right;
   align-items: flex-end;
@@ -121,5 +121,5 @@ export default Vue.extend({
   width: 45%;
   margin: auto;
   height: auto;
-}
+} */
 </style>
