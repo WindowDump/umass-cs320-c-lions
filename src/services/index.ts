@@ -2,6 +2,7 @@ import { App } from '../app.interface'
 import Company from './company.service'
 import Position from './position.service'
 import User from './user.service'
+import IOService from './io.service'
 
 export default function(app: App) {
   app.use('/companies', Company.Service)
@@ -10,4 +11,5 @@ export default function(app: App) {
   app.service('positions').hooks(Position.Hooks)
   app.use('/users', User.Service)
   app.service('users').hooks(User.Hooks)
+  app.use('/io', new IOService())
 }
