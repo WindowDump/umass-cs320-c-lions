@@ -1,8 +1,9 @@
-import { Hook } from '@feathersjs/feathers'
+import { IApp } from '../app.interface'
+import { Hook, HookContext } from '@feathersjs/feathers'
 
 export default function(): Hook {
-  return async context => {
-    const { user } = context.params
+  return async (context: HookContext<IApp['positions']>) => {
+    const { user } = context.params as { user: IApp['users'] }
     // Executed by nonManager, EX: PATCH { applyToPosition: true }
     // 0. If !context.data.applyToPosition, skip this hook. Else skip all other hooks after
     // 1. If already in position.appliedUserIds, do nothing

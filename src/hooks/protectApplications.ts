@@ -1,8 +1,9 @@
-import { Hook } from '@feathersjs/feathers'
+import { IApp } from '../app.interface'
+import { Hook, HookContext } from '@feathersjs/feathers'
 
 export default function(): Hook {
-  return async context => {
-    const { user } = context.params
+  return async (context: HookContext<IApp['users']>) => {
+    const { user } = context.params as { user: IApp['users'] }
     // them = context.service.get(context.id)
     // themId = context.id
     // me = context.user

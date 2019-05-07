@@ -1,8 +1,9 @@
-import { Hook } from '@feathersjs/feathers'
+import { IApp } from '../app.interface'
+import { Hook, HookContext } from '@feathersjs/feathers'
 
 export default function(): Hook {
-  return async context => {
-    const { user } = context.params
+  return async (context: HookContext<IApp['positions']>) => {
+    const { user } = context.params as { user: IApp['users'] }
     // Employee id is value of context.data.acceptEmployee, executed by manager
     // EX: PATCH { acceptEmployee: 'abc123' }
     // 0. If !context.data.acceptEmployee, skip this hook. Else skip all other hooks after
