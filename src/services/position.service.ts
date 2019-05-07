@@ -22,39 +22,47 @@ export const Schema = new Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Position'
   },
-  subordinatePositionIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Position'
-  }],
+  subordinatePositionIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Position'
+    }
+  ],
 
-  appliedUserIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  }],
-  acceptedUserIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  }],
+  appliedUserIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  ],
+  acceptedUserIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  ],
   hiredUserId: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  hiredUserAnswers: [{
-    question: { type: String, required: true },
-    answer: { type: String, required: true }
-  }],
+  hiredUserAnswers: [
+    {
+      question: { type: String, required: true },
+      answer: { type: String, required: true }
+    }
+  ],
 
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  payRange: { type: String, required: true },
-  jobType: { type: String, required: true },
+  description: { type: String, required: false },
+  payRange: { type: String, required: false },
+  jobType: { type: String, required: false },
 
-  startDate: { type: String, required: true },
-  postingDate: { type: String, required: true },
-  postingExpirationDate: { type: String, required: true }
+  startDate: { type: String, required: false },
+  postingDate: { type: String, required: false },
+  postingExpirationDate: { type: String, required: false }
 })
 
 export const Service = makeService({
@@ -74,7 +82,7 @@ export const Hooks: Partial<HooksObject> = {
         'hiredUserAnswers'
       ),
       linkToParent(),
-      (context) => {
+      context => {
         context.data.appliedUserIds = []
         context.data.acceptedUserIds = []
         context.data.hiredUserAnswers = []
@@ -82,9 +90,7 @@ export const Hooks: Partial<HooksObject> = {
         context.data.companyId = context.params.user.companyId
       }
     ],
-    remove: [
-      attachChildrenToParent()
-    ],
+    remove: [attachChildrenToParent()],
     patch: [
       discard(
         'companyId',
@@ -96,7 +102,7 @@ export const Hooks: Partial<HooksObject> = {
       applyToPosition(),
       acceptPosition(),
       rejectPosition(),
-      
+
       onlyCompanyManager(),
       acceptEmployee()
     ]
