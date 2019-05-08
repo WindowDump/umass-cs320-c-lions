@@ -13,6 +13,7 @@ Vue.config.productionTip = false
   try {
     const { data } = await Axios.get('/users/me')
     ;(window as any).$user = data
+    ;(window as any).Axios = Axios
   } catch (e) {
     shouldVisitLogin = true
   }
