@@ -48,6 +48,12 @@ export default new Router({
       component: () => import('./views/Onboarding.vue')
     },
     {
+      path: '/editPosition',
+      name: 'editPosition',
+      component: () => import('./views/EditPosition.vue'),
+      props: true
+    },
+    {
       path: '/application',
       name: 'application',
       component: () => import('./views/ApplicationTest.vue')
