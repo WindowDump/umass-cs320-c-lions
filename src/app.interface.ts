@@ -26,7 +26,7 @@ export interface IApp {
     managedCompanyId: string
 
     appliedPositionIds: string[]
-    availablePositionIds: []
+    availablePositionIds: string[]
   }
 
   positions: {

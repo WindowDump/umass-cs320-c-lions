@@ -47,6 +47,7 @@ export const Service = makeService({
 
 export const Hooks: Partial<HooksObject> = {
   before: {
+    all: [ protectApplications() ],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt'), usersMe() ],
     create: [
@@ -58,13 +59,7 @@ export const Hooks: Partial<HooksObject> = {
       ),
       setCanImportData()
     ],
-    patch: [
-      disallow('rest'),
-      discard(
-        'appliedPositionIds',
-        'availablePositionIds'
-      )
-    ],
+    patch: [ disallow('rest') ],
     remove: [ authenticate('jwt'), usersMe() ]
   },
   after: { all: [protect('password'), protectApplications()] }

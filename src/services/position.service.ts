@@ -10,6 +10,9 @@ import acceptEmployee from '../hooks/acceptEmployee'
 import applyToPosition from '../hooks/applyToPosition'
 import acceptPosition from '../hooks/acceptPosition'
 import rejectPosition from '../hooks/rejectPosition'
+import positionCreationChecks from '../hooks/positionCreationChecks'
+import allowInternalCalls from '../hooks/allowInternalCalls'
+import auth from '../hooks/auth'
 
 export const Schema = new Mongoose.Schema({
   companyId: {
@@ -63,29 +66,20 @@ export const Service = makeService({
 
 export const Hooks: Partial<HooksObject> = {
   before: {
+    all: [ auth() ],
     create: [
-      onlyCompanyManager(),
-      discard(
-        'companyId',
-        'subordinatePositionIds',
-        'appliedUserIds',
-        'acceptedUserIds',
-        'hiredUserId',
-        'hiredUserAnswers'
-      ),
-      linkToParent(),
+      positionCreationChecks(),
       (context) => {
+        delete context.data.hiredUserId
         context.data.appliedUserIds = []
         context.data.acceptedUserIds = []
         context.data.hiredUserAnswers = []
         context.data.subordinatePositionIds = []
-        context.data.companyId = context.params.user.companyId
+        context.data.companyId = context.params.user.managedCompanyId
       }
     ],
-    remove: [
-      attachChildrenToParent()
-    ],
     patch: [
+      allowInternalCalls(),
       discard(
         'companyId',
         'appliedUserIds',
@@ -99,6 +93,22 @@ export const Hooks: Partial<HooksObject> = {
       
       onlyCompanyManager(),
       acceptEmployee()
+    ],
+    remove: [
+      onlyCompanyManager()
+    ]
+  },
+  after: {
+    find: [
+      (context) => {
+        return context
+      }
+    ],
+    create: [
+      linkToParent()
+    ],
+    remove: [
+      attachChildrenToParent()
     ]
   }
 }
