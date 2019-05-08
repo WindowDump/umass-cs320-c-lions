@@ -52,6 +52,16 @@ export default new Router({
       name: 'editPosition',
       component: () => import('./views/EditPosition.vue'),
       props: true
+    },
+    {
+      path: '/application',
+      name: 'application',
+      component: () => import('./views/ApplicationTest.vue')
+    },
+    {
+      path: '/orgchart',
+      name: 'orgchart',
+      component: () => import('./views/OrgChart.vue')
     }
   ]
 })

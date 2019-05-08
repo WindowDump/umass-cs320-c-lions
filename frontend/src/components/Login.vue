@@ -6,7 +6,7 @@
         <v-tab-item column centered>
           <v-form
             ref="loginForm"
-            @submit="login"
+            @submit.prevent="login"
             v-model="valid"
             lazy-validation
           >
@@ -23,10 +23,10 @@
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex sx6>
+                <v-flex xs6>
                   <v-card-text class="text-xs-right">Password:</v-card-text>
                 </v-flex>
-                <v-flex sx6>
+                <v-flex xs6>
                   <v-text-field
                     v-model="loginPwd"
                     :type="'password'"
@@ -49,7 +49,7 @@
         <v-tab-item>
           <v-form
             ref="createForm"
-            @submit="create"
+            @submit.prevent="create"
             v-model="valid"
             lazy-validation
           >
@@ -114,11 +114,19 @@
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12>
-                  <v-checkbox
-                    v-model="isManager"
-                    :label="'are you a manager?'"
-                  ></v-checkbox>
+                <v-flex xs6>
+                  <v-card-text class="text-xs-right">
+                    Company to Manage:
+                  </v-card-text>
+                </v-flex>
+                <v-flex xs6>
+                  <v-select
+                    v-model="managedCompanyId"
+                    :items="companyNames"
+                    label="Company to manage..."
+                    box
+                    required
+                  ></v-select>
                 </v-flex>
                 <v-flex xs12>
                   <v-btn class="bt-submit" type="submit" color="success"
@@ -147,8 +155,10 @@ export default Vue.extend({
     createPwdConfirm: '',
     firstName: '',
     lastName: '',
-    isManager: false,
+    managedCompanyId: null,
     valid: false,
+    companies: [{ name: 'None', _id: undefined }],
+    companyNames: ['None'],
     emailRules: [
       (v: string) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -157,34 +167,48 @@ export default Vue.extend({
     ]
   }),
 
-  methods: {
-    login: async function() {
-      if ((this.$refs.loginForm as any).validate()) {
-        const { status } = await Axios.post('/auth', {
-          strategy: 'local',
-          email: this.loginEmail,
-          password: this.loginPwd
-        })
+  async created() {
+    console.log('RUNNING CREATE HOOK')
+    const { data } = await Axios.get('/companies')
+    this.companies.push(...data)
+    this.companyNames.push(...data.map((c: any) => c.name))
+    console.log('DATA', data)
+    console.log('NEW COMPANIES', this.companies)
+  },
 
-        if (status === 201) {
-          alert('Successful login')
-          const { data } = await Axios.get('/users/me')
-          ;(window as any).$user = data
-        } else alert('Error: Unable to login')
+  methods: {
+    async login() {
+      if ((this.$refs.loginForm as any).validate()) {
+        try {
+          const { status } = await Axios.post('/auth', {
+            strategy: 'local',
+            email: this.loginEmail,
+            password: this.loginPwd
+          })
+          location.href = '/'
+        } catch (e) {
+          alert('Error: Invalid email/password combination')
+        }
       } else {
         alert(
           'Some fields are not filled out correctly. Please verify the information you have entered is correct.'
         )
       }
     },
-    create: function() {
-      if ((this.$refs.createForm as any).validate()) {
+    async create() {
+      if (
+        (this.$refs.createForm as any).validate() &&
+        this.createPwd == this.createPwdConfirm
+      ) {
+        const company = this.companies.find(
+          (c: any) => c.name === this.managedCompanyId
+        )
         Axios.post('/users', {
           email: this.createEmail,
           password: this.createPwd,
           firstName: this.firstName,
           lastName: this.lastName,
-          isManager: this.isManager
+          managedCompanyId: company && company._id
         })
         alert('Your account has been created! Please log in to continue')
       } else {

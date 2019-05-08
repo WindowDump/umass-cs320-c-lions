@@ -3,6 +3,7 @@
     <p>showing page {{ cur_page }}</p>
     <div v-for="pos in poslist" v-bind:key="pos">
       <Position
+        v-if="!pos.hiredUserId"
         v-bind:id="pos._id"
         v-bind:title="pos.title"
         v-bind:description="pos.description"
@@ -12,7 +13,7 @@
         v-bind:postingDate="pos.postingDate"
         v-bind:postingExpirationDate="pos.postingExpirationDate"
       />
-      <br />
+      <br v-if="!pos.hiredUserId" />
     </div>
     <v-pagination
       length="10"

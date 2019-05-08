@@ -2,7 +2,14 @@
   "name": "frontend",
   "vue": {
     "devServer": {
-      "proxy": "http://localhost:3030"
+      "proxy": {
+        "/companies": { "target": "http://localhost:3030" },
+        "/users": { "target": "http://localhost:3030" },
+        "/positions": { "target": "http://localhost:3030" },
+        "/auth": { "target": "http://localhost:3030" },
+        "/io": { "target": "http://localhost:3030" },
+        "/sockjs-node": { "target": "http://localhost:3030", "ws": true }
+      }
     }
   },
   "private": true,
@@ -11,6 +18,7 @@
     "fibers": "^3.1.1",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
+    "vue-organization-chart": "^1.1.6",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.5.9"

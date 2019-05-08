@@ -3,11 +3,7 @@ import Mongoose from 'mongoose'
 import { HooksObject } from '@feathersjs/feathers'
 
 export const Schema = new Mongoose.Schema({
-  name: String,
-  positions: {
-    type: Mongoose.Schema.Types.ObjectId,
-    ref: 'Position'
-  }
+  name: String
 })
 
 export const Service = makeService({
