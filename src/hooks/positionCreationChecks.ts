@@ -4,8 +4,8 @@ import { Hook, HookContext } from '@feathersjs/feathers'
 
 export default function(): Hook {
   return async (context: HookContext<IApp['positions']>) => {
-    const user = context.params as IApp['users']
-    if (!user || !user.managedCompanyId) {
+    const user = context.params.user as IApp['users']
+    if (!user.managedCompanyId) {
       throw new FeathersError.Forbidden('Only company managers can create new positions')
     }
 
