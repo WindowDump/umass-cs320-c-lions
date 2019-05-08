@@ -68,6 +68,7 @@ export const Hooks: Partial<HooksObject> = {
   before: {
     all: [ auth() ],
     create: [
+      allowInternalCalls(),
       positionCreationChecks(),
       (context) => {
         delete context.data.hiredUserId
