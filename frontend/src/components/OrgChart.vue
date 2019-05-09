@@ -1,6 +1,15 @@
 <template>
   <div>
-    <organization-chart :datasource="ds" pan="true"></organization-chart>
+    <organization-chart
+      v-if="ds != null"
+      :datasource="ds"
+      pan="true"
+    ></organization-chart>
+    <v-progress-circular
+      v-if="ds == null"
+      indeterminate
+      color="green"
+    ></v-progress-circular>
   </div>
 </template>
 
@@ -29,10 +38,15 @@ export default {
   methods: {
     makeNode: async function(id) {
       const { data } = await Axios.get('/positions/' + id)
-      //const { userdata } = await Axios.get('/users/'+data.hiredUserId)
+      let name = ''
+      if (data.hiredUserId) {
+        const userdata = (await Axios.get('/users/' + data.hiredUserId)).data
+        name = userdata.firstName + ' ' + userdata.lastName
+      } else {
+        name = 'Open'
+      }
       // TODO: userdata is always undefined as a hook blocks from getting the user,
       // a workaround will need to be found to fill in the name
-      const name = data.hiredUserId ? 'Name here' : 'Open'
       let children = []
       for (const sub of data.subordinatePositionIds) {
         children.push(await this.makeNode(sub))
