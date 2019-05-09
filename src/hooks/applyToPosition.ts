@@ -11,17 +11,19 @@ export default function(): Hook {
     if ((context.data! as any).applyToPosition) {
       // 1. If already in position.appliedUserIds, do nothing
       if (
-        (record.acceptedUserIds || []).some(x =>
-          x.toString() === user._id.toString()
+        (record.acceptedUserIds || []).some(
+          x => x.toString() === user._id.toString()
         )
-      ) throw new FeathersError.BadRequest(
-        'You have already been accepted to this position'
       )
-      if (
-        (record.appliedUserIds || []).some(x => 
-          x.toString() === user._id.toString()
+        throw new FeathersError.BadRequest(
+          'You have already been accepted to this position'
         )
-      ) return context
+      if (
+        (record.appliedUserIds || []).some(
+          x => x.toString() === user._id.toString()
+        )
+      )
+        return context
 
       // 2. Otherwise add user._id to position.appliedUserIds
       context.service.patch(context.id!, {

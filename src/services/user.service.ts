@@ -25,16 +25,20 @@ export const Schema = new Mongoose.Schema(
       ref: 'Company'
     },
 
-    appliedPositionIds: [{
-      type: Mongoose.Schema.Types.ObjectId,
-      ref: 'Position',
-      required: true
-    }],
-    availablePositionIds: [{
-      type: Mongoose.Schema.Types.ObjectId,
-      ref: 'Position',
-      required: true
-    }],
+    appliedPositionIds: [
+      {
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'Position',
+        required: true
+      }
+    ],
+    availablePositionIds: [
+      {
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'Position',
+        required: true
+      }
+    ],
     hiredPositionId: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: 'Position'
@@ -51,9 +55,9 @@ export const Service = makeService({
 
 export const Hooks: Partial<HooksObject> = {
   before: {
-    all: [ protectApplications() ],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt'), usersMe() ],
+    all: [protectApplications()],
+    find: [authenticate('jwt')],
+    get: [authenticate('jwt'), usersMe()],
     create: [
       hashPassword(),
       discard(
@@ -64,8 +68,8 @@ export const Hooks: Partial<HooksObject> = {
       ),
       setCanImportData()
     ],
-    patch: [ disallow('rest') ],
-    remove: [ authenticate('jwt'), usersMe() ]
+    patch: [disallow('rest')],
+    remove: [authenticate('jwt'), usersMe()]
   },
   after: { all: [protect('password'), protectApplications()] }
 }

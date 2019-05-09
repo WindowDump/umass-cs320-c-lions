@@ -7,10 +7,13 @@ export default function(): Hook {
     const user = context.params.user as IApp['users']
     const record = await context.service.get(context.id!)
     if (
-      !user || !user.managedCompanyId ||
+      !user ||
+      !user.managedCompanyId ||
       user.managedCompanyId.toString() !== record.companyId.toString()
     ) {
-      context.error = new errors.Forbidden("You are not a manager of this company")
+      context.error = new errors.Forbidden(
+        'You are not a manager of this company'
+      )
       throw context.error
     }
     return context

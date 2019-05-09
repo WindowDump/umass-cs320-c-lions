@@ -9,14 +9,16 @@ export default function(): Hook {
     // 0. If !context.data.acceptPosition, skip this hook
     if ((context.data! as any).acceptPosition) {
       // 1. For each position p in user.appliedPositions, remove user._id from p.appliedUserIds and possibly p.acceptedUserIds
-      Promise.all(user.appliedPositionIds.map(async (posId: string) => {
-        const pos = await context.service.get(posId)
-        const pred = (p: string) => p.toString() !== user._id.toString()
-        await context.service.patch(posId, {
-          appliedUserIds: (pos.appliedUserIds || []).filter(pred),
-          acceptedUserIds: (pos.acceptedUserIds || []).filter(pred)
+      Promise.all(
+        user.appliedPositionIds.map(async (posId: string) => {
+          const pos = await context.service.get(posId)
+          const pred = (p: string) => p.toString() !== user._id.toString()
+          await context.service.patch(posId, {
+            appliedUserIds: (pos.appliedUserIds || []).filter(pred),
+            acceptedUserIds: (pos.acceptedUserIds || []).filter(pred)
+          })
         })
-      }))
+      )
 
       // 2. Set position.hiredUserId to user._id
       // 3. Set position.hiredUserAnswers to data.answers
@@ -33,7 +35,7 @@ export default function(): Hook {
         hiredUserId: user._id,
         hiredUserAnswers: qa,
         acceptedUserIds: [],
-        appliedUserIds: [],
+        appliedUserIds: []
       })
 
       // 5. Set user.appliedPositions to [], set user.availablePositionIds to []
@@ -41,7 +43,7 @@ export default function(): Hook {
       const User = context.app.service('users') as Service<IApp['users']>
       User.patch(user._id, {
         appliedPositionIds: [],
-        availablePositionIds:[],
+        availablePositionIds: [],
         hiredPositionId: context.id as string
       })
 

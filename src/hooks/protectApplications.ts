@@ -13,10 +13,12 @@ export default function(): Hook {
     for (const them of others) {
       if (us._id.toString() !== them._id.toString()) {
         if (context.result instanceof Array) {
-          Promise.all(context.result!.map(async (record: IApp['users']) => {
-            delete record.appliedPositionIds
-            delete record.availablePositionIds
-          }))
+          Promise.all(
+            context.result!.map(async (record: IApp['users']) => {
+              delete record.appliedPositionIds
+              delete record.availablePositionIds
+            })
+          )
         } else {
           delete context.result!.appliedPositionIds
           delete context.result!.availablePositionIds

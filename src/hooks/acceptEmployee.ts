@@ -36,7 +36,7 @@ export default function(): Hook {
       Users.patch(employeeId, {
         availablePositionIds: user.availablePositionIds.concat(record._id)
       })
-      
+
       // 4. Skip all other hooks after this one
       return SKIP
     }

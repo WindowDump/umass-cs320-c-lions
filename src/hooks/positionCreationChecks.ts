@@ -6,13 +6,17 @@ export default function(): Hook {
   return async (context: HookContext<IApp['positions']>) => {
     const user = context.params.user as IApp['users']
     if (!user.managedCompanyId) {
-      throw new FeathersError.Forbidden('Only company managers can create new positions')
+      throw new FeathersError.Forbidden(
+        'Only company managers can create new positions'
+      )
     }
 
     if (context.data!.parentPositionId) {
       const parent = await context.service.get(context.data!.parentPositionId)
       if (parent.companyId.toString() !== user.managedCompanyId.toString()) {
-        throw new FeathersError.Forbidden('You are not a manager of this company')
+        throw new FeathersError.Forbidden(
+          'You are not a manager of this company'
+        )
       }
     }
   }

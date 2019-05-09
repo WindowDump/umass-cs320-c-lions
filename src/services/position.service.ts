@@ -25,30 +25,38 @@ export const Schema = new Mongoose.Schema({
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'Position'
   },
-  subordinatePositionIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Position'
-  }],
+  subordinatePositionIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Position'
+    }
+  ],
 
-  appliedUserIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  }],
-  acceptedUserIds: [{
-    type: Mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  }],
+  appliedUserIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  ],
+  acceptedUserIds: [
+    {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  ],
   hiredUserId: {
     type: Mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  hiredUserAnswers: [{
-    question: { type: String, required: true },
-    answer: { type: String, required: true }
-  }],
+  hiredUserAnswers: [
+    {
+      question: { type: String, required: true },
+      answer: { type: String, required: true }
+    }
+  ],
 
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -66,11 +74,11 @@ export const Service = makeService({
 
 export const Hooks: Partial<HooksObject> = {
   before: {
-    all: [ auth() ],
+    all: [auth()],
     create: [
       allowInternalCalls(),
       positionCreationChecks(),
-      (context) => {
+      context => {
         delete context.data.hiredUserId
         context.data.appliedUserIds = []
         context.data.acceptedUserIds = []
@@ -91,26 +99,20 @@ export const Hooks: Partial<HooksObject> = {
       applyToPosition(),
       acceptPosition(),
       rejectPosition(),
-      
+
       onlyCompanyManager(),
       acceptEmployee()
     ],
-    remove: [
-      onlyCompanyManager()
-    ]
+    remove: [onlyCompanyManager()]
   },
   after: {
     find: [
-      (context) => {
+      context => {
         return context
       }
     ],
-    create: [
-      linkToParent()
-    ],
-    remove: [
-      attachChildrenToParent()
-    ]
+    create: [linkToParent()],
+    remove: [attachChildrenToParent()]
   }
 }
 
