@@ -214,7 +214,7 @@ export default Vue.extend({
         })
 
         alert('A new position has been added!')
-        this.$emit('refresh')
+        window.location.href = window.location.href + ''
       } else {
         alert('Some fields are not filled out correctly. Unable to submit.')
       }

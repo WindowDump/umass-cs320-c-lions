@@ -46,6 +46,7 @@ export default Vue.extend({
       await Axios.patch('/positions/' + this.parentId, {
         acceptEmployee: this.userMap[this.applicant]
       })
+      window.location.href = window.location.href + ''
     }
   }
 })
