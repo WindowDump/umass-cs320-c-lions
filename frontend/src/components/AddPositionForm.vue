@@ -199,10 +199,10 @@ export default Vue.extend({
   }),
 
   methods: {
-    positionSubmit: function(event: Event) {
+    positionSubmit: async function(event: Event) {
       console.log('PID', this.parentId)
       if ((this.$refs.form as any).validate()) {
-        Axios.post('/positions', {
+        await Axios.post('/positions', {
           title: this.theTitle,
           description: this.theDesc,
           payRange: '$' + this.theRange[0] + '-$' + this.theRange[1],
