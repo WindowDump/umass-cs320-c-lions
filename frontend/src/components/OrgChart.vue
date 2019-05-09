@@ -1,6 +1,7 @@
 <template>
   <div>
     <organization-chart
+      @node-click="onOrgClick"
       v-if="ds != null && canView"
       :datasource="ds"
       pan="true"
@@ -54,6 +55,9 @@ export default {
     this.ds = await this.makeNode(root[0]._id)
   },
   methods: {
+    onOrgClick(node) {
+      this.$emit('onClick', node)
+    },
     makeNode: async function(id) {
       const pos = (await Axios.get('/positions/' + id)).data
       let name = ''

@@ -16,9 +16,6 @@
         <v-btn flat @click="redirect('/import')">
           <router-link to="/import">Import Data...</router-link>
         </v-btn>
-        <v-btn flat @click="redirect('/addPosition')">
-          <router-link to="/addPosition">Add a New Position</router-link>
-        </v-btn>
         <v-btn @click="logout" flat>
           Logout
         </v-btn>

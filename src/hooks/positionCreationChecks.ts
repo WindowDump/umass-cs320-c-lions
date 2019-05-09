@@ -11,7 +11,7 @@ export default function(): Hook {
 
     if (context.data!.parentPositionId) {
       const parent = await context.service.get(context.data!.parentPositionId)
-      if (parent.companyId !== user.managedCompanyId) {
+      if (parent.companyId.toString() !== user.managedCompanyId.toString()) {
         throw new FeathersError.Forbidden('You are not a manager of this company')
       }
     }

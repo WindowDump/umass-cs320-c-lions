@@ -8,6 +8,18 @@
           v-model="valid"
           lazy-validation
         >
+          <v-layout row style="text-align: center">
+            <h2 v-if="parentId" style="width: 100%">
+              Appending a position under {{ parentName }}
+              <v-btn flat icon color="red lighten-2" @click="parentId = ''">
+                <v-icon>clear</v-icon>
+              </v-btn>
+            </h2>
+            <h2 v-if="!parentId" style="width: 100%">
+              Appending a top-level position
+            </h2>
+          </v-layout>
+          <br />
           <v-layout row wrap>
             <v-flex xs6>
               <v-card-text>Title:</v-card-text>
@@ -35,11 +47,11 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex xs3>
+            <v-flex xs6>
               <v-card-text>Pay Range:</v-card-text>
             </v-flex>
 
-            <v-flex shrink style="width: 60px" xs3>
+            <v-flex shrink style="width: 60px; margin-right: 20px">
               <v-text-field
                 v-model="theRange[0]"
                 hide-details
@@ -51,7 +63,7 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex xs3>
+            <v-flex>
               <v-range-slider
                 v-model="theRange"
                 :max="600"
@@ -61,7 +73,7 @@
               ></v-range-slider>
             </v-flex>
 
-            <v-flex shrink style="width: 60px" xs3>
+            <v-flex shrink style="width: 60px; margin-left: 20px">
               <v-text-field
                 v-model="theRange[1]"
                 hide-details
@@ -167,6 +179,7 @@ import Vue from 'vue'
 import Axios from 'axios'
 
 export default Vue.extend({
+  props: ['parentId', 'parentName'],
   data: () => ({
     theTitle: '',
     theDesc: '',
@@ -187,6 +200,7 @@ export default Vue.extend({
 
   methods: {
     positionSubmit: function(event: Event) {
+      console.log('PID', this.parentId)
       if ((this.$refs.form as any).validate()) {
         Axios.post('/positions', {
           title: this.theTitle,
@@ -195,7 +209,8 @@ export default Vue.extend({
           jobType: this.theType,
           startDate: this.theStart,
           postingDate: new Date().toISOString().substr(0, 10),
-          postingExpirationDate: this.theExp
+          postingExpirationDate: this.theExp,
+          parentPositionId: this.parentId
         })
 
         alert('A new position has been added!')
