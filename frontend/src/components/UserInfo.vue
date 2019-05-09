@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <!-- <v-app id="inspire"> -->
-    <v-container> </v-container>
+    <v-container>
+      <pre>
+ 
+{{ text }}
+</pre
+      >
+    </v-container>
     <!-- </v-app> -->
   </div>
 </template>
@@ -14,13 +20,12 @@ export default Vue.extend({
   data: () => ({
     text: ''
   }),
-  async mounted() {
-    const { data } = await Axios.get('/positions/' + this.parentId)
-
-    // for(let QA of data.hiredUserAnswers){
-    //     text += QA
-    // }
+  mounted() {
+    //this.text = ''
+    for (let qa of this.QAs) {
+      this.text += qa.question + ' : ' + qa.answer + '\n'
+    }
   },
-  props: ['parentId', 'parentName', 'items']
+  props: ['QAs']
 })
 </script>

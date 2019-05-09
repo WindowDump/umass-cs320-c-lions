@@ -24,6 +24,7 @@ interface ImportStructure {
     postedDate: ''
     postingExpirationDate: ''
   }>
+  questions: [string]
 }
 
 interface ParamsWithUser extends Params {
@@ -70,7 +71,10 @@ export default class IOService
   private treeRoot?: Position = undefined
 
   public async create(data: ImportStructure, params: ParamsWithUser) {
-    const companyId = await this.addCompany(data.employees[0].companyName)
+    const companyId = await this.addCompany(
+      data.employees[0].companyName,
+      data.questions
+    )
     for (const employee of data.employees) {
       const userId = await this.addUser(
         employee.firstName,
@@ -124,8 +128,8 @@ export default class IOService
     return Promise.reject(new FeathersError.MethodNotAllowed())
   }
 
-  private async addCompany(name: string) {
-    const data = await this.app.service('companies').create({ name })
+  private async addCompany(name: string, questions: [string]) {
+    const data = await this.app.service('companies').create({ name, questions })
     return data._id
   }
 
