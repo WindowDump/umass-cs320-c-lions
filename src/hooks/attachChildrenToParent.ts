@@ -19,9 +19,12 @@ export default function(): Hook {
     if (record.parentPositionId) {
       const parentRecord = await context.service.get(record.parentPositionId)
       console.log('OLD', parentRecord.subordinatePositionIds)
-      console.log('NEW', (parentRecord.subordinatePositionIds || [])
-      .filter(x => x.toString() !== record._id.toString())
-      .concat(...record.subordinatePositionIds))
+      console.log(
+        'NEW',
+        (parentRecord.subordinatePositionIds || [])
+          .filter(x => x.toString() !== record._id.toString())
+          .concat(...record.subordinatePositionIds)
+      )
       await context.service.patch(parentRecord._id, {
         subordinatePositionIds: (parentRecord.subordinatePositionIds || [])
           .filter(x => x.toString() !== record._id.toString())

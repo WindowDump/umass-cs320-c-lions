@@ -41,9 +41,8 @@ export default {
     if (this.user.managedCompanyId) {
       companyId = this.user.managedCompanyId
     } else {
-      companyId = (await Axios.get('/positions', {
-        params: { hiredUserId: this.user._id }
-      })).data.companyId
+      companyId = (await Axios.get('/positions/' + this.user.hiredPositionId))
+        .data.companyId
     }
     if (companyId === undefined) {
       this.canView = false
