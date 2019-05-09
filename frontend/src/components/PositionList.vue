@@ -11,6 +11,7 @@
       v-bind:startDate="pos.startDate"
       v-bind:postingDate="pos.postingDate"
       v-bind:postingExpirationDate="pos.postingExpirationDate"
+      v-bind:applied="applications.includes(pos.id)"
     />
   </div>
 </template>
@@ -22,13 +23,14 @@ import Axios from 'axios'
 export default Vue.extend({
   data() {
     return {
-      cur_page: 1,
-      poslist: null
+      poslist: null,
+      applications: []
     }
   },
   async mounted() {
     const { data } = await Axios.get('/positions')
     this.poslist = data.filter((x: any) => !x.hiredUserId)
+    this.applications = (window as any).$user.appliedPositionIds
   },
   components: {
     Position

@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="pos">
     <v-card-title class="green darken-1">
       <h1 class=".display-2" style="color:white">{{ title }}</h1>
     </v-card-title>
@@ -12,15 +12,30 @@
       <p>Start Date: {{ startDate }}</p>
     </v-card-text>
     <v-card-actions>
-      <form @submit="removepos" id="positionForm">
-        <v-btn class="bt-submit" type="submit" color="green">Delete</v-btn>
-      </form>
-      <v-btn @click="passV()" color="blue">Edit</v-btn>
-      <form @submit="editpos" id="positionForm">
-        <v-btn class="bt-submit" type="submit" color="purple"
-          >Apply One Click</v-btn
-        >
-      </form>
+      <v-btn @click="removepos()" class="bt-submit" type="submit" color="red">
+        Delete
+      </v-btn>
+      <v-btn @click="passV()" color="blue">
+        Edit
+      </v-btn>
+      <v-btn
+        v-if="!applied && !forceApplication"
+        @click="apply()"
+        class="bt-submit"
+        type="submit"
+        color="green"
+      >
+        Apply
+      </v-btn>
+      <v-btn
+        v-if="applied || forceApplication"
+        disabled
+        class="bt-submit"
+        type="submit"
+        color="green"
+      >
+        Applied
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -38,16 +53,18 @@ export default Vue.extend({
     'jobType',
     'startDate',
     'postingDate',
-    'postingExpirationDate'
+    'postingExpirationDate',
+    'applied'
   ],
   data: () => ({
-    user: (window as any).$user
+    user: (window as any).$user,
+    forceApplication: false
   }),
   methods: {
-    removepos: function(event: Event) {
-      Axios.delete('/positions/' + this.id)
+    async removepos() {
+      await Axios.delete('/positions/' + this.id)
     },
-    passV: function(event: Event) {
+    async passV() {
       let id = this.id
       let title = this.title
       let description = this.description
@@ -70,13 +87,23 @@ export default Vue.extend({
         }
       })
     },
-    editpos: async function(event: Event) {
-      await Axios.patch('/positions/' + this.user._id, {
+    async apply() {
+      console.log(this.id)
+      await Axios.patch('/positions/' + this.id, {
         applyToPosition: true
       })
+      this.user.appliedPositionIds.push(this.id)
+      this.forceApplication = true
     }
   }
 })
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.pos {
+  float: left;
+  margin: 15px;
+  width: 350px;
+  height: 375px;
+}
+</style>

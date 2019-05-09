@@ -9,13 +9,13 @@ Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 ;(async () => {
-  let shouldVisitLogin = false
+  let forcedPage: string | undefined
   try {
     const { data } = await Axios.get('/users/me')
     ;(window as any).$user = data
     ;(window as any).Axios = Axios
   } catch (e) {
-    shouldVisitLogin = true
+    forcedPage = 'login'
   }
 
   const vue = new Vue({
@@ -23,7 +23,7 @@ Vue.config.productionTip = false
     render: h => h(App)
   }).$mount('#app')
 
-  if (shouldVisitLogin) {
-    vue.$router.replace('login')
+  if (forcedPage) {
+    vue.$router.replace(forcedPage)
   }
 })()
