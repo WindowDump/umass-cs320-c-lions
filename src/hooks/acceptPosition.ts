@@ -37,10 +37,12 @@ export default function(): Hook {
       })
 
       // 5. Set user.appliedPositions to [], set user.availablePositionIds to []
+      // 6. Set user.hiredPositionId to position.id
       const User = context.app.service('users') as Service<IApp['users']>
       User.patch(user._id, {
         appliedPositionIds: [],
-        availablePositionIds:[]
+        availablePositionIds:[],
+        hiredPositionId: context.id as string
       })
 
       // 6. Skip all other hooks after this one

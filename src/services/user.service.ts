@@ -34,7 +34,11 @@ export const Schema = new Mongoose.Schema(
       type: Mongoose.Schema.Types.ObjectId,
       ref: 'Position',
       required: true
-    }]
+    }],
+    hiredPositionId: {
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: 'Position'
+    }
   },
   {
     timestamps: true
@@ -55,7 +59,8 @@ export const Hooks: Partial<HooksObject> = {
       discard(
         'canImportData',
         'appliedPositionIds',
-        'availablePositionIds'
+        'availablePositionIds',
+        'hiredPositionId'
       ),
       setCanImportData()
     ],
