@@ -2,15 +2,19 @@
   <div>
     <h1>OrgChart</h1>
     <OrgChart @onClick="setParent"></OrgChart>
-
-    <Applicants
-      :parentId="parentId"
-      :parentName="parentName"
-      :items="items"
-      :userMap="userMap"
-    ></Applicants>
-
-    <UserInfo :QAs="QAs"></UserInfo>
+    <h2 v-if="appliedUsers.length !== 0">
+      <Applicants
+        :parentId="parentId"
+        :parentName="parentName"
+        :items="items"
+        :userMap="userMap"
+      ></Applicants>
+    </h2>
+    <pre v-else>
+ 
+{{ text }}
+</pre
+    >
     <AddPositionForm
       v-if="user.managedCompanyId"
       :parentId="parentId"
@@ -31,17 +35,16 @@ export default Vue.extend({
   components: {
     OrgChart,
     AddPositionForm,
-    Applicants,
-    UserInfo
+    Applicants
   },
   data: () => ({
     user: (window as any).$user,
     parentId: '',
     parentName: '',
     appliedUsers: [] as string[],
-    QAs: [],
     items: [] as string[],
-    userMap: {} as { [name: string]: string }
+    userMap: {} as { [name: string]: string },
+    text: ''
   }),
   methods: {
     setParent(node: { name: string; id: string; title: string }) {
@@ -53,7 +56,11 @@ export default Vue.extend({
       const { data } = await Axios.get('/positions/' + this.parentId)
 
       this.appliedUsers = data.appliedUserIds
-      this.QAs = data.hiredUserAnswers
+
+      this.text = ''
+      for (let qa of data.hiredUserAnswers) {
+        this.text += qa.question + ' : ' + qa.answer + '\n'
+      }
 
       this.items = []
       for (let userId of this.appliedUsers) {

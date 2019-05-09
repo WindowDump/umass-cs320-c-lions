@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <v-app id="inspire"> -->
     <v-container>
-      <v-form ref="form" @submit.prevent="hireApplicant" lazy-validation>
+      <v-form ref="form" @submit="hireApplicant" lazy-validation>
         <v-layout row wrap>
           <h2 v-if="parentId">
             <v-flex xs12>
