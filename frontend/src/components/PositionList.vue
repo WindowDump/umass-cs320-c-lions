@@ -1,27 +1,17 @@
 <template>
   <div class="positionlist">
-    <p>showing page {{ cur_page }}</p>
-    <div v-for="pos in poslist" v-bind:key="pos">
-      <Position
-        v-if="!pos.hiredUserId"
-        v-bind:id="pos._id"
-        v-bind:title="pos.title"
-        v-bind:description="pos.description"
-        v-bind:payRange="pos.payRange"
-        v-bind:jobType="pos.jobType"
-        v-bind:startDate="pos.startDate"
-        v-bind:postingDate="pos.postingDate"
-        v-bind:postingExpirationDate="pos.postingExpirationDate"
-      />
-      <br v-if="!pos.hiredUserId" />
-    </div>
-    <v-pagination
-      length="10"
-      color="green darken-1"
-      v-model="cur_page"
-      @input="getPage"
-    >
-    </v-pagination>
+    <Position
+      v-for="pos in poslist"
+      v-bind:key="pos._id"
+      v-bind:id="pos._id"
+      v-bind:title="pos.title"
+      v-bind:description="pos.description"
+      v-bind:payRange="pos.payRange"
+      v-bind:jobType="pos.jobType"
+      v-bind:startDate="pos.startDate"
+      v-bind:postingDate="pos.postingDate"
+      v-bind:postingExpirationDate="pos.postingExpirationDate"
+    />
   </div>
 </template>
 
@@ -38,7 +28,7 @@ export default Vue.extend({
   },
   async mounted() {
     const { data } = await Axios.get('/positions')
-    this.poslist = data
+    this.poslist = data.filter((x: any) => !x.hiredUserId)
   },
   components: {
     Position
