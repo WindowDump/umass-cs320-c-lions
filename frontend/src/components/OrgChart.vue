@@ -39,7 +39,6 @@ export default {
     let companyId = undefined
     if (this.user.managedCompanyId) {
       companyId = this.user.managedCompanyId
-      alert(companyId)
     } else {
       companyId = (await Axios.get('/positions', {
         params: { hiredUserId: this.user._id }
