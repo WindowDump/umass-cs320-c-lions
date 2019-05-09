@@ -2,10 +2,13 @@
   <div id="app">
     <v-app id="inspire">
       <v-container>
-        <v-layout row wrap v-for="question in questions" v-bind:key="question">
-          <span>Question: {{ question }}</span>
-          <v-text-field label="Answer" v-model="answer" box></v-text-field>
-        </v-layout>
+        <div row v-for="(question, i) in questions" v-bind:key="question">
+          <p>Question: {{ question }}</p>
+          <v-text-field label="Answer" v-model="answers[i]" box></v-text-field>
+        </div>
+        <center>
+          <v-btn @click="onboarding_complete" color="green">Submit</v-btn>
+        </center>
       </v-container>
     </v-app>
   </div>
@@ -17,9 +20,16 @@ import Axios from 'axios'
 
 export default Vue.extend({
   data: () => ({
-    questions: ['a', 'b', 'c'],
+    questions: [],
     answers: []
   }),
+  async mounted() {
+    const { companyId } = (await Axios.get(
+      '/positions/' + this.$route.params.id
+    )).data
+    const { data } = await Axios.get('/companies/' + companyId)
+    this.questions = data.questions || ['a', 'b', 'c']
+  },
   methods: {
     async onboarding_complete() {
       await Axios.patch('/positions/' + this.$route.params.id, {
