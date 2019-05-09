@@ -17,7 +17,7 @@ export const Schema = new Mongoose.Schema(
     lastName: { type: String, required: true },
     canImportData: { type: Boolean, required: true },
 
-    email: { type: String, unique: true, lowercase: true, required: true },
+    email: { type: String, lowercase: true, required: true },
     password: { type: String, required: true },
 
     managedCompanyId: {
