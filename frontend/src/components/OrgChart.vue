@@ -36,9 +36,15 @@ export default {
     }
   },
   async mounted() {
-    const companyId = (await Axios.get(
-      '/positions?hiredUserId=' + this.user._id
-    )).data.companyId
+    let companyId = undefined
+    if (this.user.managedCompanyId) {
+      companyId = this.user.managedCompanyId
+      alert(companyId)
+    } else {
+      companyId = (await Axios.get('/positions', {
+        params: { hiredUserId: this.user._id }
+      })).data.companyId
+    }
     if (companyId === undefined) {
       this.canView = false
       return
@@ -46,7 +52,7 @@ export default {
     const root = (await Axios.get('/positions', {
       params: { companyId, positionParentId: undefined }
     })).data
-    this.ds = await this.makeNode(data[0]._id)
+    this.ds = await this.makeNode(root[0]._id)
   },
   methods: {
     makeNode: async function(id) {
@@ -58,14 +64,12 @@ export default {
       } else {
         name = 'Open'
       }
-      // TODO: userdata is always undefined as a hook blocks from getting the user,
-      // a workaround will need to be found to fill in the name
       let children = []
       for (const sub of pos.subordinatePositionIds) {
         children.push(await this.makeNode(sub))
       }
       return {
-        id: '0',
+        id: pos._id,
         title: pos.title,
         name,
         children
