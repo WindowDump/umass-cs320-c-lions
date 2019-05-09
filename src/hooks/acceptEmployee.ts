@@ -17,9 +17,8 @@ export default function(): Hook {
           'This user has not applied to this position'
         )
       }
-      // 2. Remove employee from appliedUserIds and add to acceptedUserIds
+      // 2. Add employee to acceptedUserIds
       context.service.patch(context.id!, {
-        appliedUserIds: record.appliedUserIds.filter(x => x.toString() !== employeeId),
         acceptedUserIds: (record.acceptedUserIds || []).concat(employeeId)
       })
       // 3. Add this position to employee.availablePositionIds

@@ -1,5 +1,5 @@
 import { IApp } from '../app.interface'
-import { Hook, HookContext, SKIP } from '@feathersjs/feathers'
+import { Service, Hook, HookContext, SKIP } from '@feathersjs/feathers'
 
 export default function(): Hook {
   return async (context: HookContext<IApp['positions']>) => {
@@ -13,8 +13,14 @@ export default function(): Hook {
       if (!(record.appliedUserIds || []).includes(user._id)) {
         // 2. Otherwise add user._id to position.appliedUserIds
         context.service.patch(context.id!, {
-          // appliedUserIds: [...new Set(record.appliedUserIds || []).add(user._id)]
           appliedUserIds: (record.appliedUserIds || []).concat(user._id)
+        })
+        // 3. Add position to appliedPositionIds
+        const User = context.app.service('users') as Service<IApp['users']>
+        User.patch(user._id, {
+          appliedPositionIds: (user.appliedPositionIds || []).concat(
+            context.id as string
+          )
         })
       }
 
