@@ -155,10 +155,12 @@ export default Vue.extend({
     },
     upload: async function() {
       if ((this.$refs.employeeForm as any).validate()) {
-        Axios.post('/io', {
+        await Axios.post('/io', {
           employees: this.employeeJsonFile,
           positions: this.positionJsonFile
         })
+        alert('done')
+        //redirect('/orgchart')
       } else {
         // alert('Must choose a file to upload.')
       }

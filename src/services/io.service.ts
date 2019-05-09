@@ -149,7 +149,13 @@ export default class IOService
         companyId: pos.companyId,
         title: pos.title,
         parentPositionId,
-        hiredUserId: userId
+        hiredUserId: userId,
+        description: 'None',
+        payRange: '0',
+        jobType: 'None',
+        startDate: '0',
+        postingDate: '0',
+        postingExpirationDate: '0'
       })
       return data._id
     } else {
@@ -159,9 +165,15 @@ export default class IOService
         parentPositionId,
         description:
           'This position was imported and does not contain a description',
-        startDate: pos.startDate,
-        postingDate: pos.postingDate,
-        postingExpirationDate: pos.postingExpirationDate
+        payRange: '0',
+        jobType: 'None',
+        startDate: pos.startDate !== undefined ? pos.startDate : 'Not listed',
+        postingDate:
+          pos.postingDate !== undefined ? pos.postingDate : 'Not listed',
+        postingExpirationDate:
+          pos.postingExpirationDate !== undefined
+            ? pos.postingExpirationDate
+            : 'None'
       })
       return data._id
     }
