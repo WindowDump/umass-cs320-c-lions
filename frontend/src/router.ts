@@ -52,6 +52,11 @@ export default new Router({
       path: '/orgchart',
       name: 'orgchart',
       component: () => import('./views/OrgChart.vue')
+    },
+    {
+      path: '/offer',
+      name: 'offer',
+      component: () => import('./views/NewOffers.vue')
     }
   ]
 })
