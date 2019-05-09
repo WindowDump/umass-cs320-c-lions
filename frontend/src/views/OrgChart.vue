@@ -2,17 +2,15 @@
   <div>
     <h1>OrgChart</h1>
     <OrgChart @onClick="setParent"></OrgChart>
-    <h2 v-if="items.length !== 0">
-      <Applicants
-        :parentId="parentId"
-        :parentName="parentName"
-        :items="items"
-        :userMap="userMap"
-      ></Applicants>
-    </h2>
-    <h2 v-else>
-      <UserInfo :parentId="parentId" :parentName="parentName"></UserInfo>
-    </h2>
+
+    <Applicants
+      :parentId="parentId"
+      :parentName="parentName"
+      :items="items"
+      :userMap="userMap"
+    ></Applicants>
+
+    <UserInfo :QAs="QAs"></UserInfo>
     <AddPositionForm
       v-if="user.managedCompanyId"
       :parentId="parentId"
@@ -41,6 +39,7 @@ export default Vue.extend({
     parentId: '',
     parentName: '',
     appliedUsers: [] as string[],
+    QAs: [],
     items: [] as string[],
     userMap: {} as { [name: string]: string }
   }),
@@ -51,9 +50,11 @@ export default Vue.extend({
       this.getApplicants()
     },
     getApplicants: async function() {
-      this.appliedUsers = (await Axios.get(
-        '/positions/' + this.parentId
-      )).data.appliedUserIds
+      const { data } = await Axios.get('/positions/' + this.parentId)
+
+      this.appliedUsers = data.appliedUserIds
+      this.QAs = data.hiredUserAnswers
+
       this.items = []
       for (let userId of this.appliedUsers) {
         const user = (await Axios.get('/users/' + userId)).data

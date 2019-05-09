@@ -11,14 +11,14 @@
                 <v-select
                   v-model="applicant"
                   :items="items"
-                  label="Select a position type..."
+                  label="Select an applicant..."
                   outline
                   required
                 ></v-select>
               </v-flex>
               <v-flex xs12>
                 <v-btn class="bt-submit" type="submit" color="success"
-                  >Submit</v-btn
+                  >Send Offer</v-btn
                 >
               </v-flex>
             </v-flex>
