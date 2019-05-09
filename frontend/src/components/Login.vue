@@ -45,6 +45,11 @@
           </v-form>
         </v-tab-item>
 
+        <v-tab ripple>Import</v-tab>
+        <v-tab-item column centered>
+          <Import></Import>
+        </v-tab-item>
+
         <v-tab ripple>Create Account</v-tab>
         <v-tab-item>
           <v-form
@@ -145,8 +150,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import Axios from 'axios'
+import Import from './Import.vue'
 
 export default Vue.extend({
+  components: {
+    Import
+  },
+
   data: () => ({
     loginEmail: '',
     loginPwd: '',
