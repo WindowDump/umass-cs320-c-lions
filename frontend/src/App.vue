@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <v-toolbar v-if="user">
+    <v-toolbar
+      v-if="
+        user &&
+          $router.currentRoute.name !== 'offer' &&
+          $router.currentRoute.name !== 'onboarding'
+      "
+    >
       <v-toolbar-title>HierArchy</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">

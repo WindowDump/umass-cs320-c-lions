@@ -13,6 +13,9 @@ Vue.config.productionTip = false
   try {
     const { data } = await Axios.get('/users/me')
     ;(window as any).$user = data
+    if (data.availablePositionIds.length) {
+      forcedPage = 'offer'
+    }
     ;(window as any).Axios = Axios
   } catch (e) {
     forcedPage = 'login'
