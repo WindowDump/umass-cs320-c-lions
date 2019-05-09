@@ -1,15 +1,19 @@
 <template>
   <div>
     <organization-chart
-      v-if="ds != null"
+      v-if="ds != null && canView"
       :datasource="ds"
       pan="true"
     ></organization-chart>
     <v-progress-circular
-      v-if="ds == null"
+      v-if="ds == null && canView"
       indeterminate
       color="green"
     ></v-progress-circular>
+    <p v-if="!canView">
+      Your account is not associated with any company and cannot view the
+      hierarchy
+    </p>
   </div>
 </template>
 
@@ -26,21 +30,30 @@ export default {
   data() {
     return {
       poslist: null,
-      ds: null
+      user: window.$user,
+      ds: null,
+      canView: true
     }
   },
   async mounted() {
-    const { data } = await Axios.get('/positions', {
-      params: { positionParentId: undefined }
-    })
+    const companyId = (await Axios.get(
+      '/positions?hiredUserId=' + this.user._id
+    )).data.companyId
+    if (companyId === undefined) {
+      this.canView = false
+      return
+    }
+    const root = (await Axios.get('/positions', {
+      params: { companyId, positionParentId: undefined }
+    })).data
     this.ds = await this.makeNode(data[0]._id)
   },
   methods: {
     makeNode: async function(id) {
-      const { data } = await Axios.get('/positions/' + id)
+      const pos = (await Axios.get('/positions/' + id)).data
       let name = ''
-      if (data.hiredUserId) {
-        const userdata = (await Axios.get('/users/' + data.hiredUserId)).data
+      if (pos.hiredUserId) {
+        const userdata = (await Axios.get('/users/' + pos.hiredUserId)).data
         name = userdata.firstName + ' ' + userdata.lastName
       } else {
         name = 'Open'
@@ -48,12 +61,12 @@ export default {
       // TODO: userdata is always undefined as a hook blocks from getting the user,
       // a workaround will need to be found to fill in the name
       let children = []
-      for (const sub of data.subordinatePositionIds) {
+      for (const sub of pos.subordinatePositionIds) {
         children.push(await this.makeNode(sub))
       }
       return {
         id: '0',
-        title: data.title,
+        title: pos.title,
         name,
         children
       }
