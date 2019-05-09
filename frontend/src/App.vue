@@ -13,9 +13,6 @@
         <v-btn flat @click="redirect('/about')">
           <router-link to="/about">About</router-link>
         </v-btn>
-        <v-btn flat @click="redirect('/import')">
-          <router-link to="/import">Import Data...</router-link>
-        </v-btn>
         <v-btn flat @click="redirect('/offer')">
           <router-link to="/offer">offers</router-link>
         </v-btn>

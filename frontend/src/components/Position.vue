@@ -12,10 +12,20 @@
       <p>Start Date: {{ startDate }}</p>
     </v-card-text>
     <v-card-actions>
-      <v-btn @click="removepos()" class="bt-submit" type="submit" color="red">
+      <v-btn
+        @click="removepos()"
+        class="bt-submit"
+        type="submit"
+        color="red"
+        v-if="user.managedCompanyId === companyId"
+      >
         Delete
       </v-btn>
-      <v-btn @click="passV()" color="blue">
+      <v-btn
+        @click="passV()"
+        color="blue"
+        v-if="user.managedCompanyId === companyId"
+      >
         Edit
       </v-btn>
       <v-btn
@@ -47,6 +57,7 @@ import { describe } from 'mocha'
 export default Vue.extend({
   props: [
     'id',
+    'companyId',
     'title',
     'description',
     'payRange',
@@ -62,6 +73,7 @@ export default Vue.extend({
   }),
   methods: {
     async removepos() {
+      this.$emit('onRemove')
       await Axios.delete('/positions/' + this.id)
     },
     async passV() {
@@ -103,7 +115,7 @@ export default Vue.extend({
 .pos {
   float: left;
   margin: 15px;
-  width: 350px;
+  width: 425px;
   height: 375px;
 }
 </style>

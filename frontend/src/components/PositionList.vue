@@ -4,6 +4,7 @@
       v-for="pos in poslist"
       v-bind:key="pos._id"
       v-bind:id="pos._id"
+      v-bind:companyId="pos.companyId"
       v-bind:title="pos.title"
       v-bind:description="pos.description"
       v-bind:payRange="pos.payRange"
@@ -12,6 +13,7 @@
       v-bind:postingDate="pos.postingDate"
       v-bind:postingExpirationDate="pos.postingExpirationDate"
       v-bind:applied="applications.includes(pos._id)"
+      @onRemove="onRemove(pos._id)"
     />
   </div>
 </template>
@@ -23,7 +25,7 @@ import Axios from 'axios'
 export default Vue.extend({
   data() {
     return {
-      poslist: null,
+      poslist: [],
       applications: []
     }
   },
@@ -36,8 +38,8 @@ export default Vue.extend({
     Position
   },
   methods: {
-    getPage: function(page: Number) {
-      //alert(page)
+    onRemove(id: string) {
+      this.poslist = this.poslist.filter((x: any) => x._id !== id)
     }
   }
 })
