@@ -2,8 +2,9 @@
   <div id="app">
     <v-app id="inspire">
       <v-container>
-        <v-layout row wrap>
-          <v-flex></v-flex>
+        <v-layout row wrap v-for="question in questions" v-bind:key="question">
+          <span>Question: {{ question }}</span>
+          <v-text-field label="Answer" v-model="answer" box></v-text-field>
         </v-layout>
       </v-container>
     </v-app>
