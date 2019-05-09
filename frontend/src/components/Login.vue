@@ -221,6 +221,7 @@ export default Vue.extend({
           managedCompanyId: company && company._id
         })
         alert('Your account has been created! Please log in to continue')
+        window.location.href = '/login'
       } else {
         alert(
           'Some fields are not filled out correctly. Please verify the information you have entered is correct.'

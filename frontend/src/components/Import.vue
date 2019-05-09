@@ -48,6 +48,11 @@
               accept=".json"
               @change="handlePositionFileSelect"
             />
+            <v-text-field
+              v-model="question"
+              label="Enter a question"
+              box
+            ></v-text-field>
           </v-flex>
           <v-flex xs12>
             <v-btn
@@ -86,6 +91,8 @@ export default Vue.extend({
     uploading: false,
     employeeFileName: '',
     positionFileName: '',
+    questionCount: 0,
+    question: '',
     progressBarValue: 0,
     treeroot: null,
     employeeJsonFile: [
@@ -169,12 +176,19 @@ export default Vue.extend({
     upload: async function() {
       if ((this.$refs.employeeForm as any).validate()) {
         this.uploading = true
-        await Axios.post('/io', {
-          employees: this.employeeJsonFile,
-          positions: this.positionJsonFile
-        })
+        try {
+          let questions = this.question.split(',')
+          await Axios.post('/io', {
+            employees: this.employeeJsonFile,
+            positions: this.positionJsonFile,
+            questions
+          })
+        } catch (e) {
+          this.uploading = false
+        }
         this.uploading = false
         alert('done')
+        window.location.href = '/login'
         //redirect('/orgchart')
       } else {
         // alert('Must choose a file to upload.')

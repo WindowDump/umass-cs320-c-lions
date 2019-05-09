@@ -3,7 +3,8 @@ import Mongoose from 'mongoose'
 import { HooksObject } from '@feathersjs/feathers'
 
 export const Schema = new Mongoose.Schema({
-  name: String
+  name: String,
+  questions: [String]
 })
 
 export const Service = makeService({

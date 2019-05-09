@@ -39,6 +39,7 @@ export default Vue.extend({
           answer: this.answers[i]
         }))
       })
+      this.$router.push({ name: 'orgchart' })
     }
   }
 })
