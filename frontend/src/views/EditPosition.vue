@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Edit an existing Job Listing</h1>
+    <center>
+      <h1>Edit an existing Job Listing</h1>
+    </center>
     <EditPositionForm></EditPositionForm>
     <PositionList></PositionList>
   </div>

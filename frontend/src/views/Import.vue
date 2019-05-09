@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>Import position and employee data</h1>
+    <center>
+      <h1>Import position and employee data</h1>
+    </center>
     <Import></Import>
   </div>
 </template>
