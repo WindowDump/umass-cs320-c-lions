@@ -205,7 +205,7 @@ export default Vue.extend({
         Axios.post('/positions', {
           title: this.theTitle,
           description: this.theDesc,
-          payRange: this.theRange,
+          payRange: '$' + this.theRange[0] + '-$' + this.theRange[1],
           jobType: this.theType,
           startDate: this.theStart,
           postingDate: new Date().toISOString().substr(0, 10),
