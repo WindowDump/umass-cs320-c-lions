@@ -11,7 +11,7 @@
       v-bind:startDate="pos.startDate"
       v-bind:postingDate="pos.postingDate"
       v-bind:postingExpirationDate="pos.postingExpirationDate"
-      v-bind:applied="applications.includes(pos.id)"
+      v-bind:applied="applications.includes(pos._id)"
     />
   </div>
 </template>
