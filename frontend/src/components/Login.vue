@@ -45,11 +45,6 @@
           </v-form>
         </v-tab-item>
 
-        <v-tab ripple>Import</v-tab>
-        <v-tab-item column centered>
-          <Import></Import>
-        </v-tab-item>
-
         <v-tab ripple>Create Account</v-tab>
         <v-tab-item>
           <v-form
@@ -141,6 +136,11 @@
               </v-layout>
             </v-container>
           </v-form>
+        </v-tab-item>
+
+        <v-tab ripple>Import</v-tab>
+        <v-tab-item column centered>
+          <Import></Import>
         </v-tab-item>
       </v-tabs>
     </v-app>
