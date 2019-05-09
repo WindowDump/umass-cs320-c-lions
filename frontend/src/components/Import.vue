@@ -50,8 +50,20 @@
             />
           </v-flex>
           <v-flex xs12>
-            <v-btn class="bt-submit" type="submit" color="success"
+            <v-btn
+              v-if="!uploading"
+              class="bt-submit"
+              type="submit"
+              color="success"
               >Upload</v-btn
+            >
+            <v-btn
+              v-if="uploading"
+              loading
+              class="bt-submit"
+              type="submit"
+              color="success"
+              >Uploading...</v-btn
             >
           </v-flex>
           <v-progress-linear
@@ -71,6 +83,7 @@ import Axios from 'axios'
 
 export default Vue.extend({
   data: () => ({
+    uploading: false,
     employeeFileName: '',
     positionFileName: '',
     progressBarValue: 0,
@@ -155,10 +168,12 @@ export default Vue.extend({
     },
     upload: async function() {
       if ((this.$refs.employeeForm as any).validate()) {
+        this.uploading = true
         await Axios.post('/io', {
           employees: this.employeeJsonFile,
           positions: this.positionJsonFile
         })
+        this.uploading = false
         alert('done')
         //redirect('/orgchart')
       } else {

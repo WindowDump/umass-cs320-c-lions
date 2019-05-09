@@ -52,7 +52,7 @@ export default {
     const root = (await Axios.get('/positions', {
       params: { companyId, positionParentId: undefined }
     })).data
-    this.ds = await this.makeNode(root[0]._id)
+    if (root.length) this.ds = await this.makeNode(root[0]._id)
   },
   methods: {
     onOrgClick(node) {

@@ -38,11 +38,6 @@ export default new Router({
       component: () => import('./views/Login.vue')
     },
     {
-      path: '/apply',
-      name: 'apply',
-      component: () => import('./views/Apply.vue')
-    },
-    {
       path: '/onboarding',
       name: 'onboarding',
       component: () => import('./views/Onboarding.vue')
@@ -52,11 +47,6 @@ export default new Router({
       name: 'editPosition',
       component: () => import('./views/EditPosition.vue'),
       props: true
-    },
-    {
-      path: '/application',
-      name: 'application',
-      component: () => import('./views/ApplicationTest.vue')
     },
     {
       path: '/orgchart',
