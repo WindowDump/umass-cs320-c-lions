@@ -179,14 +179,6 @@ export default class IOService
     }
   }
 
-  private async addSubordinate(node: Position, subordinateId: string) {
-    const data = await this.app.service('positions').get(node.dbId as string)
-    data.subordinatePositionIds.push(subordinateId)
-    await this.app.service('positions').patch(node.dbId as string, {
-      subordinatePositionIds: data.subordinatePositionIds
-    })
-  }
-
   private async addToTree(
     node: Position | undefined,
     posToAdd: Position,
@@ -196,7 +188,6 @@ export default class IOService
       if (node.employeeId === posToAdd.managerId) {
         posToAdd.dbId = await this.addPosition(posToAdd, userId, node.dbId)
         node.subordinates.push(posToAdd)
-        await this.addSubordinate(node, posToAdd.dbId as string)
       } else {
         for (const sub of node.subordinates) {
           this.addToTree(sub, posToAdd, userId)
