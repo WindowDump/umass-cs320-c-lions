@@ -8,7 +8,7 @@
         :value="n._id"
       ></v-radio>
     </v-radio-group>
-    <v-btn color="green" :disabled="!posId">Accept</v-btn>
+    <v-btn @click="accept" color="green" :disabled="!posId">Accept</v-btn>
     <v-btn @click="reject" color="red" :disabled="!posId">Reject</v-btn>
     <v-btn @click="back">Back</v-btn>
   </v-container>
@@ -65,7 +65,7 @@ export default Vue.extend({
       })
     },
     async back() {
-      this.$router.back()
+      this.$router.replace({ name: 'home' })
     }
   }
 })
