@@ -70,10 +70,9 @@ export default Vue.extend({
         }
       })
     },
-    editpos: function(event: Event) {
-      Axios.patch('/positions/' + this.id, {
-        title: 'title',
-        description: 'new description'
+    editpos: async function(event: Event) {
+      await Axios.patch('/positions/' + this.user._id, {
+        applyToPosition: true
       })
     }
   }
