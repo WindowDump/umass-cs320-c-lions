@@ -35,11 +35,11 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex xs3>
+            <v-flex xs6>
               <v-card-text>Pay Range:</v-card-text>
             </v-flex>
 
-            <v-flex shrink style="width: 60px" xs3>
+            <v-flex shrink style="width: 60px; margin-right: 20px">
               <v-text-field
                 v-model="theRange[0]"
                 hide-details
@@ -51,7 +51,7 @@
               ></v-text-field>
             </v-flex>
 
-            <v-flex xs3>
+            <v-flex>
               <v-range-slider
                 v-model="theRange"
                 :max="600"
@@ -61,7 +61,7 @@
               ></v-range-slider>
             </v-flex>
 
-            <v-flex shrink style="width: 60px" xs3>
+            <v-flex shrink style="width: 60px; margin-left: 20px">
               <v-text-field
                 v-model="theRange[1]"
                 hide-details
